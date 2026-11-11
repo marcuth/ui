@@ -129,7 +129,7 @@ export default async function ComponentPage({ params }: Props) {
                             <CodeBlockTitle>{item.slug}.tsx</CodeBlockTitle>
                             <CodeBlockCopyButton value={code} />
                         </CodeBlockHeader>
-                        <CodeBlockContent>{code}</CodeBlockContent>
+                        <CodeBlockContent language="tsx">{code}</CodeBlockContent>
                     </CodeBlock>
                 </TabsContent>
             </Tabs>

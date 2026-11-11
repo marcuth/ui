@@ -7,6 +7,7 @@ export type NavItem = {
 
 export type NavGroup = {
     title: string
+    columns?: 1 | 2 | 3
     items: NavItem[]
 }
 
@@ -28,6 +29,7 @@ export const navGroups: NavGroup[] = [
     },
     {
         title: "Backgrounds",
+        columns: 1,
         items: [
             { slug: "background-blur", label: "Background Blur", description: "Blurred blobs for an aurora look." },
             { slug: "background-dots", label: "Background Dots", description: "Dot matrix with optional edge fade." },
@@ -44,6 +46,7 @@ export const navGroups: NavGroup[] = [
     },
     {
         title: "Error Pages",
+        columns: 1,
         items: [
             {
                 slug: "error-page",

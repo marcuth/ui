@@ -230,7 +230,9 @@ export function Playground() {
                                                     <CodeBlockTitle>terminal</CodeBlockTitle>
                                                     <CodeBlockCopyButton value="npm install @marcuth/ui" />
                                                 </CodeBlockHeader>
-                                                <CodeBlockContent>npm install @marcuth/ui</CodeBlockContent>
+                                                <CodeBlockContent language="bash">
+                                                    npm install @marcuth/ui
+                                                </CodeBlockContent>
                                             </CodeBlock>
                                         </TabsContent>
                                         <TabsContent value="pnpm">
@@ -239,7 +241,9 @@ export function Playground() {
                                                     <CodeBlockTitle>terminal</CodeBlockTitle>
                                                     <CodeBlockCopyButton value="pnpm add @marcuth/ui" />
                                                 </CodeBlockHeader>
-                                                <CodeBlockContent>pnpm add @marcuth/ui</CodeBlockContent>
+                                                <CodeBlockContent language="bash">
+                                                    pnpm add @marcuth/ui
+                                                </CodeBlockContent>
                                             </CodeBlock>
                                         </TabsContent>
                                         <TabsContent value="yarn">
@@ -248,7 +252,9 @@ export function Playground() {
                                                     <CodeBlockTitle>terminal</CodeBlockTitle>
                                                     <CodeBlockCopyButton value="yarn add @marcuth/ui" />
                                                 </CodeBlockHeader>
-                                                <CodeBlockContent>yarn add @marcuth/ui</CodeBlockContent>
+                                                <CodeBlockContent language="bash">
+                                                    yarn add @marcuth/ui
+                                                </CodeBlockContent>
                                             </CodeBlock>
                                         </TabsContent>
                                         <TabsContent value="bun">

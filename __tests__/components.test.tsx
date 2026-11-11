@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
 
 import {
@@ -11,6 +11,8 @@ import {
     BrandMark,
     brandName,
     Button,
+    CodeBlock,
+    CodeBlockContent,
     Emoji,
     ErrorPage,
     Field,
@@ -295,5 +297,30 @@ describe("Error pages", () => {
     it("ErrorPage accepts custom copy and actions", () => {
         render(<ErrorPage code="Offline" title="Sem conexão" actions={<button>Recarregar</button>} />)
         expect(screen.getByRole("button", { name: "Recarregar" })).toBeInTheDocument()
+    })
+})
+
+describe("CodeBlock syntax highlighting", () => {
+    it("renders plain lines until the language loads, then colored tokens", async () => {
+        const { container } = render(
+            <CodeBlock>
+                <CodeBlockContent language="tsx">{'const a = "x"'}</CodeBlockContent>
+            </CodeBlock>,
+        )
+        expect(container.querySelector("[data-slot=code-block-code]")).toHaveTextContent('const a = "x"')
+        await waitFor(() =>
+            expect(container.querySelectorAll("[data-slot=code-block-line] span[style]").length).toBeGreaterThan(1),
+        )
+        expect(container.querySelector("[data-slot=code-block-code]")).toHaveTextContent('const a = "x"')
+    })
+
+    it("leaves unknown languages and non-string children untouched", () => {
+        const { container } = render(
+            <CodeBlock>
+                <CodeBlockContent language="brainfuck">{"+++"}</CodeBlockContent>
+            </CodeBlock>,
+        )
+        expect(container.querySelector("[data-slot=code-block-code]")).toHaveTextContent("+++")
+        expect(container.querySelectorAll("span[style]")).toHaveLength(0)
     })
 })

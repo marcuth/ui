@@ -979,7 +979,7 @@ export const previews: Record<string, ReactNode> = {
                     <CodeBlockTitle>layout.tsx</CodeBlockTitle>
                     <CodeBlockCopyButton value={'const theme = defineTheme({ brand: "#00bc7d" })'} />
                 </CodeBlockHeader>
-                <CodeBlockContent>{'const theme = defineTheme({ brand: "#00bc7d" })'}</CodeBlockContent>
+                <CodeBlockContent language="ts">{'const theme = defineTheme({ brand: "#00bc7d" })'}</CodeBlockContent>
             </CodeBlock>
         </PreviewWrapper>
     ),

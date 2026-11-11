@@ -5,6 +5,7 @@ import * as React from "react"
 import { LuCheck, LuCopy } from "react-icons/lu"
 
 import { Button } from "@/components/ui/button"
+import { useHighlightedCode } from "@/hooks/use-highlighted-code"
 import { cn } from "@/lib/utils"
 
 const codeBlockVariants = cva(
@@ -132,12 +133,19 @@ function CodeBlockContent({
     wrap = false,
     lineNumbers = false,
     startLine = 1,
+    language,
     ...props
 }: React.ComponentProps<"pre"> & {
     wrap?: boolean
     lineNumbers?: boolean
     startLine?: number
+    /** Syntax-highlights string children (`tsx`, `bash`, `css`…). Unknown languages render plain. */
+    language?: string
 }) {
+    const code = typeof children === "string" ? children : ""
+    const highlighted = useHighlightedCode(code, language ?? "")
+    const lines = language && typeof children === "string" ? highlighted : null
+
     return (
         <pre
             data-slot="code-block-content"
@@ -156,12 +164,14 @@ function CodeBlockContent({
                 data-slot="code-block-code"
                 className="grid min-h-lh min-w-max content-start in-data-numbered:grid-cols-[auto_1fr] in-data-wrap:min-w-0"
             >
-                {lineNumbers && typeof children === "string"
-                    ? children
-                          .replace(/\n$/, "")
-                          .split("\n")
-                          .map((line, index) => <CodeBlockLine key={index}>{line}</CodeBlockLine>)
-                    : children}
+                {lines
+                    ? lines.map((line, index) => <CodeBlockLine key={index}>{line}</CodeBlockLine>)
+                    : lineNumbers && typeof children === "string"
+                      ? children
+                            .replace(/\n$/, "")
+                            .split("\n")
+                            .map((line, index) => <CodeBlockLine key={index}>{line}</CodeBlockLine>)
+                      : children}
             </code>
         </pre>
     )
