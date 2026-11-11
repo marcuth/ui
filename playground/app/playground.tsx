@@ -83,6 +83,7 @@ export function Playground() {
                 <NavLink href="/" active>
                     Início
                 </NavLink>
+                <NavLink href="/componentes">Componentes</NavLink>
                 <NavLink href="/projetos">Projetos</NavLink>
                 <NavLink href="https://github.com/marcuth">GitHub</NavLink>
             </AppHeader>
