@@ -4,20 +4,28 @@ import { describe, expect, it } from "vitest"
 import {
     AppFooter,
     AppHeader,
+    Background,
+    BackgroundGrid,
+    BackgroundNoise,
     Badge,
     BrandMark,
     brandName,
     Button,
+    Emoji,
+    ErrorPage,
     Field,
     FieldDescription,
     FieldError,
     FieldLabel,
+    ForbiddenPage,
     Heading,
     Input,
     isInternalHref,
     Link,
     NavLink,
+    NotFoundPage,
     Section,
+    ServerErrorPage,
     Textarea,
     ThemeToggle,
 } from "../src/index"
@@ -223,5 +231,69 @@ describe("ThemeToggle", () => {
         fireEvent.click(toggle)
         expect(document.documentElement.dataset.theme).toBe("light")
         expect(document.cookie).toContain("marcuth-theme=light")
+    })
+})
+
+describe("Background", () => {
+    it("renders decorative, non-interactive layers behind the content", () => {
+        const { container } = render(
+            <Background>
+                <BackgroundGrid fade="radial" tone="brand" size={20} />
+                <BackgroundNoise />
+                <p>Conteúdo</p>
+            </Background>,
+        )
+        const grid = container.querySelector<HTMLElement>("[data-slot=background-grid]")!
+        expect(grid).toHaveAttribute("aria-hidden", "true")
+        expect(grid).toHaveClass("pointer-events-none", "-z-10")
+        expect(grid.style.backgroundSize).toBe("20px 20px")
+        expect(grid.style.backgroundImage).toContain("var(--brand)")
+        expect(screen.getByText("Conteúdo")).toBeInTheDocument()
+    })
+})
+
+describe("Emoji", () => {
+    it("renders emoji with Noto Color Emoji font family and accessible role", () => {
+        render(<Emoji emoji="🚀" label="Rocket" />)
+        const element = screen.getByRole("img", { name: "Rocket" })
+        expect(element).toHaveAttribute("data-slot", "emoji")
+        expect(element).toHaveTextContent("🚀")
+    })
+
+    it("renders children as emoji content when provided", () => {
+        const { container } = render(<Emoji size="lg">✨</Emoji>)
+        const element = container.querySelector("[data-slot=emoji]")
+        expect(element).toHaveAttribute("aria-hidden", "true")
+        expect(element).toHaveTextContent("✨")
+        expect(element).toHaveClass("size-6")
+    })
+})
+
+describe("Error pages", () => {
+    it("NotFoundPage shows the code, the brand and a home link", () => {
+        render(<NotFoundPage name="blog" />)
+        expect(screen.getByRole("heading", { level: 1, name: "Página não encontrada" })).toBeInTheDocument()
+        expect(screen.getByText("404")).toBeInTheDocument()
+        expect(screen.getByRole("img", { name: "blog.marcuth.dev" })).toBeInTheDocument()
+        expect(screen.getByRole("link", { name: "Voltar ao início" })).toHaveAttribute("href", "/")
+        expect(screen.getByRole("link", { name: "Ir para marcuth.dev" })).toHaveAttribute("href", "https://marcuth.dev")
+    })
+
+    it("omits the parent-site link on the root site", () => {
+        render(<ForbiddenPage />)
+        expect(screen.queryByRole("link", { name: /Ir para/ })).not.toBeInTheDocument()
+    })
+
+    it("ServerErrorPage exposes the digest and retries", () => {
+        let retried = 0
+        render(<ServerErrorPage digest="abc123" onRetry={() => retried++} />)
+        expect(screen.getByText("abc123")).toBeInTheDocument()
+        fireEvent.click(screen.getByRole("button", { name: "Tentar de novo" }))
+        expect(retried).toBe(1)
+    })
+
+    it("ErrorPage accepts custom copy and actions", () => {
+        render(<ErrorPage code="Offline" title="Sem conexão" actions={<button>Recarregar</button>} />)
+        expect(screen.getByRole("button", { name: "Recarregar" })).toBeInTheDocument()
     })
 })

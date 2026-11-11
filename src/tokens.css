@@ -23,6 +23,7 @@
     --ui-font-sans: var(--font-geist-sans, ui-sans-serif), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --ui-font-display: var(--ui-font-sans);
     --ui-font-mono: var(--font-geist-mono, ui-monospace), "SFMono-Regular", Menlo, monospace;
+    --ui-font-emoji: var(--font-noto-color-emoji, "Noto Color Emoji"), "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 
     /* Knob: radius (default "pill", like the portfolio's rounded-full buttons). */
     --radius: 0.75rem;

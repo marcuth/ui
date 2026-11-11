@@ -62,6 +62,7 @@
     --font-sans: var(--ui-font-sans);
     --font-display: var(--ui-font-display);
     --font-mono: var(--ui-font-mono);
+    --font-emoji: var(--ui-font-emoji);
 
     /* shadcn radius scale, bounded by --radius. */
     --radius-sm: calc(var(--radius) * 0.6);

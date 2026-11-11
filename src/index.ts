@@ -55,6 +55,7 @@ export * from "@/components/ui/dialog"
 export * from "@/components/ui/direction"
 export * from "@/components/ui/drawer"
 export * from "@/components/ui/dropdown-menu"
+export * from "@/components/ui/emoji"
 export * from "@/components/ui/empty"
 export * from "@/components/ui/field"
 export * from "@/components/ui/hover-card"
@@ -101,6 +102,38 @@ export { DatePicker, type DatePickerProps } from "@/components/date-picker"
 export { AppFooter, type AppFooterProps, type FooterLink, type FooterLinkGroup } from "@/components/app-footer"
 export { AppHeader, NavLink, type AppHeaderProps, type NavLinkProps } from "@/components/app-header"
 export { BRAND_DOMAIN, BrandMark, brandName, type BrandMarkProps } from "@/components/brand-mark"
+export {
+    Background,
+    BackgroundBlur,
+    BackgroundDots,
+    BackgroundGlow,
+    BackgroundGradient,
+    BackgroundGrid,
+    BackgroundLines,
+    BackgroundNoise,
+    type BackgroundBlurProps,
+    type BackgroundDotsProps,
+    type BackgroundFade,
+    type BackgroundGlowProps,
+    type BackgroundGradientProps,
+    type BackgroundGridProps,
+    type BackgroundLinesProps,
+    type BackgroundNoiseProps,
+    type BackgroundTone,
+} from "@/components/background"
+export {
+    ErrorPage,
+    ErrorPageActions,
+    ForbiddenPage,
+    MaintenancePage,
+    NotFoundPage,
+    ServerErrorPage,
+    TooManyRequestsPage,
+    UnauthorizedPage,
+    type ErrorPageActionsProps,
+    type ErrorPageProps,
+    type ServerErrorPageProps,
+} from "@/components/error-page"
 export {
     Container,
     containerVariants,
