@@ -265,7 +265,7 @@ export function Playground() {
                                                     <CodeBlockTitle>terminal</CodeBlockTitle>
                                                     <CodeBlockCopyButton value="bun add @marcuth/ui" />
                                                 </CodeBlockHeader>
-                                                <CodeBlockContent>bun add @marcuth/ui</CodeBlockContent>
+                                                <CodeBlockContent language="bash">bun add @marcuth/ui</CodeBlockContent>
                                             </CodeBlock>
                                         </TabsContent>
                                     </Tabs>
@@ -296,7 +296,7 @@ export function Playground() {
                                                 value={'@import "tailwindcss";\n@import "@marcuth/ui/theme.css";'}
                                             />
                                         </CodeBlockHeader>
-                                        <CodeBlockContent>{`@import "tailwindcss";\n@import "@marcuth/ui/theme.css";`}</CodeBlockContent>
+                                        <CodeBlockContent language="css">{`@import "tailwindcss";\n@import "@marcuth/ui/theme.css";`}</CodeBlockContent>
                                     </CodeBlock>
                                 </CardContent>
                             </Card>
@@ -343,7 +343,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }`}
                                             />
                                         </CodeBlockHeader>
-                                        <CodeBlockContent>{`import { defineTheme, ThemeScript, Toaster, TooltipProvider } from "@marcuth/ui"
+                                        <CodeBlockContent language="tsx">{`import { defineTheme, ThemeScript, Toaster, TooltipProvider } from "@marcuth/ui"
 import "./globals.css"
 
 const theme = defineTheme({ brand: "#00bc7d" })
@@ -406,7 +406,7 @@ export default function Page() {
 }`}
                                             />
                                         </CodeBlockHeader>
-                                        <CodeBlockContent>{`import { Button, Badge, Card, Emoji } from "@marcuth/ui"
+                                        <CodeBlockContent language="tsx">{`import { Button, Badge, Card, Emoji } from "@marcuth/ui"
 
 export default function Page() {
     return (
