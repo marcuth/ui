@@ -20,11 +20,11 @@ export type AppHeaderProps = ComponentProps<"header"> &
  *         <AppHeaderActions><ThemeToggle /></AppHeaderActions>
  *     </AppHeader>
  */
-export function AppHeader({ className, sticky = true, theme, inverse, children, ...props }: AppHeaderProps) {
+export function AppHeader({ className, sticky = true, theme, children, ...props }: AppHeaderProps) {
     return (
         <header
             data-slot="app-header"
-            {...themeScope({ theme, inverse })}
+            {...themeScope({ theme })}
             className={cn(
                 "z-40 w-full border-b bg-background/80 backdrop-blur-md",
                 sticky && "sticky top-0",

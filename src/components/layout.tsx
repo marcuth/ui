@@ -70,11 +70,11 @@ export const sectionVariants = cva("", {
 
 export type SectionProps = ComponentProps<"section"> & VariantProps<typeof sectionVariants> & ThemeScopeProps
 
-export function Section({ className, spacing, tone, theme, inverse, ...props }: SectionProps) {
+export function Section({ className, spacing, tone, theme, ...props }: SectionProps) {
     return (
         <section
             data-slot="section"
-            {...themeScope({ theme, inverse })}
+            {...themeScope({ theme })}
             className={cn(sectionVariants({ spacing, tone }), className)}
             {...props}
         />

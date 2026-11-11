@@ -83,7 +83,7 @@ export const navGroups: NavGroup[] = [
                 slug: "theme-scope",
                 label: "Theme Scope",
                 description:
-                    "The `theme` and `inverse` props on AppHeader, AppFooter, Section, Background and error pages.",
+                    "The `theme` prop (`light`, `dark`, `inverse`) on AppHeader, AppFooter, Section, Background and error pages.",
                 badge: "New",
             },
         ],

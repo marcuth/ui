@@ -449,22 +449,22 @@ describe("theme prop", () => {
     })
 })
 
-describe("inverse prop", () => {
-    it("marks the part as inverse and lets an explicit theme win", () => {
+describe('theme="inverse"', () => {
+    it("marks the part as inverse instead of pinning a theme", () => {
         const { container } = render(
             <>
-                <AppHeader inverse />
-                <AppFooter inverse />
-                <Background inverse />
-                <Background inverse theme="dark" />
+                <AppHeader theme="inverse" />
+                <AppFooter theme="inverse" />
+                <Background theme="inverse" />
+                <Background theme="dark" />
             </>,
         )
         expect(container.querySelector("[data-slot=app-header]")).toHaveAttribute("data-inverse")
         expect(container.querySelector("[data-slot=app-footer]")).toHaveAttribute("data-inverse")
-        const [plain, explicit] = container.querySelectorAll("[data-slot=background]")
-        expect(plain).toHaveAttribute("data-inverse")
-        expect(plain).not.toHaveAttribute("data-theme")
-        expect(explicit).toHaveAttribute("data-theme", "dark")
-        expect(explicit).not.toHaveAttribute("data-inverse")
+        const [inverse, pinned] = container.querySelectorAll("[data-slot=background]")
+        expect(inverse).toHaveAttribute("data-inverse")
+        expect(inverse).not.toHaveAttribute("data-theme")
+        expect(pinned).toHaveAttribute("data-theme", "dark")
+        expect(pinned).not.toHaveAttribute("data-inverse")
     })
 })

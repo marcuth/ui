@@ -56,12 +56,11 @@ export function ErrorPage({
     plain = false,
     surfaceClassName,
     theme,
-    inverse,
     className,
     ...props
 }: ErrorPageProps) {
     return (
-        <Background theme={theme} inverse={inverse} className={cn("min-h-dvh bg-background", surfaceClassName)}>
+        <Background theme={theme} className={cn("min-h-dvh bg-background", surfaceClassName)}>
             {plain ? null : (
                 <>
                     <BackgroundGrid fade="radial" opacity={8} />

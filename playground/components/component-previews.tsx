@@ -856,9 +856,9 @@ export const previews: Record<string, ReactNode> = {
                         </AppHeaderActions>
                     </AppHeader>
                 </div>
-                <Section inverse spacing="sm" className="rounded-lg border px-6">
+                <Section theme="inverse" spacing="sm" className="rounded-lg border px-6">
                     <p className="text-sm">
-                        <code className="font-mono">{"<Section inverse>"}</code> takes the opposite of the surrounding
+                        <code className="font-mono">{'<Section theme="inverse">'}</code> takes the opposite of the surrounding
                         theme: dark on a light page, light on a dark one.
                     </p>
                 </Section>

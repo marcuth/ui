@@ -63,11 +63,11 @@ function Layer({ className, fade = "none", style, ...props }: LayerProps) {
 }
 
 /** Clipped, positioned surface that hosts the pattern layers behind its children. */
-export function Background({ className, theme, inverse, ...props }: ComponentProps<"div"> & ThemeScopeProps) {
+export function Background({ className, theme, ...props }: ComponentProps<"div"> & ThemeScopeProps) {
     return (
         <div
             data-slot="background"
-            {...themeScope({ theme, inverse })}
+            {...themeScope({ theme })}
             className={cn("relative isolate overflow-hidden", className)}
             {...props}
         />

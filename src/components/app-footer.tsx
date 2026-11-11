@@ -29,17 +29,11 @@ export function AppFooter({
     groups = [],
     bottom,
     theme,
-    inverse,
     children,
     ...props
 }: AppFooterProps) {
     return (
-        <footer
-            data-slot="app-footer"
-            {...themeScope({ theme, inverse })}
-            className={cn("border-t", className)}
-            {...props}
-        >
+        <footer data-slot="app-footer" {...themeScope({ theme })} className={cn("border-t", className)} {...props}>
             <Container size="xl" className="flex flex-col gap-10 py-12">
                 <div className="flex flex-col gap-10 md:flex-row md:justify-between">
                     {brand || tagline ? (
