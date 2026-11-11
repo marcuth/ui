@@ -26,7 +26,7 @@ npm install @marcuth/ui
 `app/layout.tsx`:
 
 ```tsx
-import { defineTheme, ThemeScript } from "@marcuth/ui"
+import { defineTheme, ThemeScript, Toaster, TooltipProvider } from "@marcuth/ui"
 import { Geist } from "next/font/google"
 
 import "./globals.css"
@@ -45,7 +45,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <head>
                 <ThemeScript />
             </head>
-            <body>{children}</body>
+            <body>
+                <TooltipProvider>{children}</TooltipProvider>
+                <Toaster />
+            </body>
         </html>
     )
 }
@@ -134,19 +137,31 @@ The choice is stored in a cookie on the parent domain, so switching on `blog.exa
 
 ## Components
 
-Base components come from the **shadcn/ui CLI** (`radix-nova` style, see `components.json`) and are only adapted to the theme tokens.
+Every shadcn/ui component, generated with the **shadcn CLI** (`radix-nova` style, see `components.json`) and adapted to the design system.
 
-| Group       | Exports                                                                                |
-| ----------- | -------------------------------------------------------------------------------------- |
-| shadcn/ui   | `Button`, `Badge`, `Card*`, `Field*`, `Input`, `Textarea`, `Label`, `Separator`        |
-| Links       | `Link`, `Anchor`, `isInternalHref`                                                     |
-| Typography  | `Heading`, `Text`, `Eyebrow`, `Code`                                                   |
-| Layout      | `Container`, `Stack`, `Inline`, `Section` (`theme="dark"` flips a band)                |
-| App shell   | `AppHeader`, `NavLink`, `AppFooter`, `BrandMark`                                       |
-| Theme       | `defineTheme`, `applyTheme`, `ThemeScript`, `ThemeToggle`, `setThemeMode`              |
-| Utilities   | `cn`, `*Variants` (cva), `readableForeground`, `contrastRatio`                         |
+| Group | Components |
+| --- | --- |
+| Actions | `Button`, `ButtonGroup`, `Toggle`, `ToggleGroup`, `Link`, `Anchor` |
+| Forms | `Field*`, `Input`, `InputGroup*`, `InputOTP*`, `Textarea`, `Label`, `Checkbox`, `RadioGroup`, `Switch`, `Slider`, `Select*`, `NativeSelect`, `Combobox*`, `Calendar`, `DatePicker` |
+| Overlays | `Dialog*`, `AlertDialog*`, `Sheet*`, `Drawer*`, `Popover*`, `HoverCard*`, `Tooltip*`, `DropdownMenu*`, `ContextMenu*`, `Menubar*`, `Command*` |
+| Navigation | `NavigationMenu*`, `Breadcrumb*`, `Pagination*`, `Tabs*`, `Sidebar*` |
+| Data display | `Table*`, `DataTable`, `Chart*`, `Badge`, `Avatar*`, `Card*`, `Item*`, `Kbd`, `Empty*`, `Progress`, `Skeleton`, `Spinner`, `Marker*`, `Trace*`, `CodeBlock*` |
+| Chat / AI | `Message*`, `Bubble*`, `Attachment*`, `MessageScroller*`, `Questionnaire*` |
+| Layout | `Accordion*`, `Collapsible*`, `AspectRatio`, `Carousel*`, `Resizable*`, `ScrollArea`, `Separator`, `DirectionProvider`, `Container`, `Stack`, `Inline`, `Section` |
+| Feedback | `Toaster` + `toast` (Sonner), `Alert*` |
+| Typography | `Typography.H1…H4/P/Lead/Large/Small/Muted/Blockquote/List/InlineCode`, `Heading`, `Text`, `Eyebrow`, `Code` |
+| App shell | `AppHeader`, `NavLink`, `AppFooter`, `BrandMark` |
+| Theme | `defineTheme`, `applyTheme`, `ThemeScript`, `ThemeToggle`, `setThemeMode`, `useThemeMode` |
 
-Additions on top of shadcn: `brand` variant on `Button` and `Badge`, `success`/`warning` on `Badge`, heights follow the density knob.
+Not registry items in shadcn, built here as compositions: **`DataTable`** (TanStack Table v8 with sorting, filter and pagination; `DataTableColumnHeader` for sortable headers), **`DatePicker`** (Popover + Calendar, pt-BR by default) and **`Typography`**. *Toast* is **Sonner** (`Toaster` + `toast`), and it follows `data-theme` instead of next-themes.
+
+What the design system changes on top of shadcn:
+
+- Single-line controls (button, input, input group, select, native select, toggle, tabs, OTP slots) use `rounded-control` and `h-control-*`, so they follow the radius and density knobs. Surfaces and multi-line fields keep the bounded scale.
+- `brand` variants on `Button`, `Badge` and `Bubble`; `success`/`warning` on `Badge`; `Progress` fills with the brand.
+- Icons come from `react-icons/lu` (no `lucide-react`).
+- Motion: no `transition-all`, press feedback on buttons and toggles, overlays use the strong ease-out curve and open from their trigger (modals stay centered), sidebar moves with ease-in-out.
+- Sidebar and chart tokens use marcuth.dev's values; the active sidebar item uses the brand.
 
 ### Radius
 
