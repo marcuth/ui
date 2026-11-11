@@ -9,6 +9,8 @@ module.exports = {
         "",
         "<THIRD_PARTY_MODULES>",
         "",
+        "^@/(.*)$",
+        "",
         "^[./]"
     ],
     "importOrderParserPlugins": ["typescript", "jsx"],
