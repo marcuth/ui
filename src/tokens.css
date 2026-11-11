@@ -106,6 +106,10 @@
     --input: oklch(0.92 0.004 286.32);
 
     /* Sidebar and charts: marcuth.dev values; the active item follows the site's brand. */
+    /* Discreet scrollbar thumb: the foreground at low alpha. */
+    --ui-scrollbar-thumb: oklch(0.141 0.005 285.823 / 16%);
+    --ui-scrollbar-thumb-hover: oklch(0.141 0.005 285.823 / 32%);
+
     --sidebar: oklch(0.985 0 0);
     --sidebar-foreground: oklch(0.141 0.005 285.823);
     --sidebar-primary: var(--brand);
@@ -156,6 +160,9 @@
     --accent-foreground: oklch(0.985 0 0);
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
+
+    --ui-scrollbar-thumb: oklch(0.985 0 0 / 16%);
+    --ui-scrollbar-thumb-hover: oklch(0.985 0 0 / 32%);
 
     --sidebar: oklch(0.21 0.006 285.885);
     --sidebar-foreground: oklch(0.985 0 0);
