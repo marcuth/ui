@@ -70,12 +70,6 @@ export default function ComponentsOverviewPage() {
                                                 />
                                             </div>
                                         </div>
-                                            ) : (
-                                                <span className="text-xs text-muted-foreground">
-                                                    Preview available inside
-                                                </span>
-                                            )}
-                                        </div>
                                     </Anchor>
                                 )
                             })}
