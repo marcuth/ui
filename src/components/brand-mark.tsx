@@ -47,7 +47,7 @@ export function BrandMark({
             {...props}
         >
             {monogram && emoji ? (
-                <Emoji emoji={emoji} size="xl" className="size-7 text-[1.625rem]" />
+                <Emoji emoji={emoji} size="xl" className="h-7 w-auto min-w-7 text-[1.625rem]" />
             ) : monogram ? (
                 <span
                     aria-hidden="true"

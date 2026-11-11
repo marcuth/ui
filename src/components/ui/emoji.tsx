@@ -5,16 +5,16 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 const emojiVariants = cva(
-    "inline-flex shrink-0 select-none items-center justify-center leading-none font-normal [font-family:var(--font-noto-color-emoji,'Noto_Color_Emoji','Noto_Color_Emoji_Compat','Noto_Color_Emoji','Apple_Color_Emoji','Segoe_UI_Emoji',sans-serif)]",
+    "inline-flex shrink-0 select-none items-center justify-center text-center font-normal leading-none overflow-visible px-[0.08em] font-emoji [font-family:var(--font-emoji,'Noto_Color_Emoji','Noto_Color_Emoji_Compat','Apple_Color_Emoji','Segoe_UI_Emoji',sans-serif)] [font-variant-emoji:emoji]",
     {
         variants: {
             size: {
-                xs: "size-3.5 text-xs",
-                sm: "size-4 text-sm",
-                md: "size-5 text-base",
-                lg: "size-6 text-lg",
-                xl: "size-8 text-2xl",
-                "2xl": "size-10 text-3xl",
+                xs: "h-3.5 min-w-[1.25em] text-xs",
+                sm: "h-4 min-w-[1.25em] text-sm",
+                md: "h-5 min-w-[1.25em] text-base",
+                lg: "h-6 min-w-[1.25em] text-lg",
+                xl: "h-8 min-w-[1.25em] text-2xl",
+                "2xl": "h-10 min-w-[1.25em] text-3xl",
             },
         },
         defaultVariants: {

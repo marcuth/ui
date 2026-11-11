@@ -81,7 +81,7 @@ export function Playground() {
             <AppHeader>
                 <AppHeaderBrand>
                     <Anchor href="/">
-                        <BrandMark name={sites[site].name} />
+                        <BrandMark name={sites[site].name} emoji="📦" />
                     </Anchor>
                 </AppHeaderBrand>
                 <AppHeaderNav>

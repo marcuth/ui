@@ -305,7 +305,8 @@ describe("Emoji", () => {
         const element = container.querySelector("[data-slot=emoji]")
         expect(element).toHaveAttribute("aria-hidden", "true")
         expect(element).toHaveTextContent("✨")
-        expect(element).toHaveClass("size-6")
+        expect(element).toHaveClass("h-6")
+        expect(element).toHaveClass("overflow-visible")
     })
 })
 
