@@ -20,6 +20,7 @@ npm install @marcuth/ui
 ```css
 @import "tailwindcss";
 @import "@marcuth/ui/theme.css";
+
 ```
 
 `app/layout.tsx`:
@@ -71,44 +72,44 @@ The subdomain carries the weight, `.marcuth.dev` recedes, and the monogram tile 
 Every [react-icons](https://react-icons.github.io/react-icons/) set, one entry point per set so apps only load what they import:
 
 ```tsx
+import { LuArrowRight } from "@marcuth/ui/icons/lucide"     // the UI set
+import { SiGithub } from "@marcuth/ui/icons/simple-icons"   // brand logos
 import { IconContext, type IconType } from "@marcuth/ui/icons"
-import { LuArrowRight } from "@marcuth/ui/icons/lucide" // the UI set
-import { SiGithub } from "@marcuth/ui/icons/simple-icons" // brand logos
 ```
 
-| Entry point (`@marcuth/ui/icons/…`) | Set                        | Prefix |
-| ----------------------------------- | -------------------------- | ------ |
-| `lucide`                            | Lucide (UI default)        | `Lu`   |
-| `simple-icons`                      | Simple Icons (brand logos) | `Si`   |
-| `ant-design`                        | Ant Design Icons           | `Ai`   |
-| `boxicons`                          | BoxIcons                   | `Bi`   |
-| `bootstrap`                         | Bootstrap Icons            | `Bs`   |
-| `css-gg`                            | css.gg                     | `Cg`   |
-| `circum`                            | Circum Icons               | `Ci`   |
-| `devicons`                          | Devicons                   | `Di`   |
-| `font-awesome`                      | Font Awesome 5             | `Fa`   |
-| `font-awesome-6`                    | Font Awesome 6             | `Fa6`  |
-| `flat-color`                        | Flat Color Icons           | `Fc`   |
-| `feather`                           | Feather                    | `Fi`   |
-| `game-icons`                        | Game Icons                 | `Gi`   |
-| `octicons`                          | GitHub Octicons            | `Go`   |
-| `grommet`                           | Grommet Icons              | `Gr`   |
-| `heroicons`                         | Heroicons                  | `Hi`   |
-| `heroicons-2`                       | Heroicons 2                | `Hi2`  |
-| `icomoon`                           | IcoMoon Free               | `Im`   |
-| `ionicons-4`                        | Ionicons 4                 | `Io`   |
-| `ionicons`                          | Ionicons 5                 | `Io5`  |
-| `line-awesome`                      | Icons8 Line Awesome        | `Lia`  |
-| `material-design`                   | Material Design            | `Md`   |
-| `phosphor`                          | Phosphor Icons             | `Pi`   |
-| `remix`                             | Remix Icon                 | `Ri`   |
-| `radix`                             | Radix Icons                | `Rx`   |
-| `simple-line`                       | Simple Line Icons          | `Sl`   |
-| `tabler`                            | Tabler Icons               | `Tb`   |
-| `themify`                           | Themify Icons              | `Tfi`  |
-| `typicons`                          | Typicons                   | `Ti`   |
-| `vscode`                            | VS Code Icons              | `Vsc`  |
-| `weather`                           | Weather Icons              | `Wi`   |
+| Entry point (`@marcuth/ui/icons/…`) | Set | Prefix |
+| --- | --- | --- |
+| `lucide` | Lucide (UI default) | `Lu` |
+| `simple-icons` | Simple Icons (brand logos) | `Si` |
+| `ant-design` | Ant Design Icons | `Ai` |
+| `boxicons` | BoxIcons | `Bi` |
+| `bootstrap` | Bootstrap Icons | `Bs` |
+| `css-gg` | css.gg | `Cg` |
+| `circum` | Circum Icons | `Ci` |
+| `devicons` | Devicons | `Di` |
+| `font-awesome` | Font Awesome 5 | `Fa` |
+| `font-awesome-6` | Font Awesome 6 | `Fa6` |
+| `flat-color` | Flat Color Icons | `Fc` |
+| `feather` | Feather | `Fi` |
+| `game-icons` | Game Icons | `Gi` |
+| `octicons` | GitHub Octicons | `Go` |
+| `grommet` | Grommet Icons | `Gr` |
+| `heroicons` | Heroicons | `Hi` |
+| `heroicons-2` | Heroicons 2 | `Hi2` |
+| `icomoon` | IcoMoon Free | `Im` |
+| `ionicons-4` | Ionicons 4 | `Io` |
+| `ionicons` | Ionicons 5 | `Io5` |
+| `line-awesome` | Icons8 Line Awesome | `Lia` |
+| `material-design` | Material Design | `Md` |
+| `phosphor` | Phosphor Icons | `Pi` |
+| `remix` | Remix Icon | `Ri` |
+| `radix` | Radix Icons | `Rx` |
+| `simple-line` | Simple Line Icons | `Sl` |
+| `tabler` | Tabler Icons | `Tb` |
+| `themify` | Themify Icons | `Tfi` |
+| `typicons` | Typicons | `Ti` |
+| `vscode` | VS Code Icons | `Vsc` |
+| `weather` | Weather Icons | `Wi` |
 
 The files are generated from react-icons' manifest with `npm run icons` (it fails if a new set appears without a slug). Check each set's license in its file header.
 
@@ -139,21 +140,21 @@ The choice is stored in a cookie on the parent domain, so switching on `blog.exa
 
 Every shadcn/ui component, generated with the **shadcn CLI** (`radix-nova` style, see `components.json`) and adapted to the design system.
 
-| Group        | Components                                                                                                                                                                         |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Actions      | `Button`, `ButtonGroup`, `Toggle`, `ToggleGroup`, `Link`, `Anchor`                                                                                                                 |
-| Forms        | `Field*`, `Input`, `InputGroup*`, `InputOTP*`, `Textarea`, `Label`, `Checkbox`, `RadioGroup`, `Switch`, `Slider`, `Select*`, `NativeSelect`, `Combobox*`, `Calendar`, `DatePicker` |
-| Overlays     | `Dialog*`, `AlertDialog*`, `Sheet*`, `Drawer*`, `Popover*`, `HoverCard*`, `Tooltip*`, `DropdownMenu*`, `ContextMenu*`, `Menubar*`, `Command*`                                      |
-| Navigation   | `NavigationMenu*`, `Breadcrumb*`, `Pagination*`, `Tabs*`, `Sidebar*`                                                                                                               |
-| Data display | `Table*`, `DataTable`, `Chart*`, `Badge`, `Avatar*`, `Card*`, `Item*`, `Kbd`, `Empty*`, `Progress`, `Skeleton`, `Spinner`, `Marker*`, `Trace*`, `CodeBlock*`                       |
-| Chat / AI    | `Message*`, `Bubble*`, `Attachment*`, `MessageScroller*`, `Questionnaire*`                                                                                                         |
-| Layout       | `Accordion*`, `Collapsible*`, `AspectRatio`, `Carousel*`, `Resizable*`, `ScrollArea`, `Separator`, `DirectionProvider`, `Container`, `Stack`, `Inline`, `Section`                  |
-| Feedback     | `Toaster` + `toast` (Sonner), `Alert*`                                                                                                                                             |
-| Typography   | `Typography.H1…H4/P/Lead/Large/Small/Muted/Blockquote/List/InlineCode`, `Heading`, `Text`, `Eyebrow`, `Code`                                                                       |
-| App shell    | `AppHeader` (`AppHeaderBrand`, `AppHeaderNav`, `AppHeaderActions`), `NavLink`, `AppFooter`, `BrandMark`                                                                            |
-| Theme        | `defineTheme`, `applyTheme`, `ThemeScript`, `ThemeToggle`, `setThemeMode`, `useThemeMode`                                                                                          |
+| Group | Components |
+| --- | --- |
+| Actions | `Button`, `ButtonGroup`, `Toggle`, `ToggleGroup`, `Link`, `Anchor` |
+| Forms | `Field*`, `Input`, `InputGroup*`, `InputOTP*`, `Textarea`, `Label`, `Checkbox`, `RadioGroup`, `Switch`, `Slider`, `Select*`, `NativeSelect`, `Combobox*`, `Calendar`, `DatePicker` |
+| Overlays | `Dialog*`, `AlertDialog*`, `Sheet*`, `Drawer*`, `Popover*`, `HoverCard*`, `Tooltip*`, `DropdownMenu*`, `ContextMenu*`, `Menubar*`, `Command*` |
+| Navigation | `NavigationMenu*`, `Breadcrumb*`, `Pagination*`, `Tabs*`, `Sidebar*` |
+| Data display | `Table*`, `DataTable`, `Chart*`, `Badge`, `Avatar*`, `Card*`, `Item*`, `Kbd`, `Empty*`, `Progress`, `Skeleton`, `Spinner`, `Marker*`, `Trace*`, `CodeBlock*` |
+| Chat / AI | `Message*`, `Bubble*`, `Attachment*`, `MessageScroller*`, `Questionnaire*` |
+| Layout | `Accordion*`, `Collapsible*`, `AspectRatio`, `Carousel*`, `Resizable*`, `ScrollArea`, `Separator`, `DirectionProvider`, `Container`, `Stack`, `Inline`, `Section` |
+| Feedback | `Toaster` + `toast` (Sonner), `Alert*` |
+| Typography | `Typography.H1…H4/P/Lead/Large/Small/Muted/Blockquote/List/InlineCode`, `Heading`, `Text`, `Eyebrow`, `Code` |
+| App shell | `AppHeader` (`AppHeaderBrand`, `AppHeaderNav`, `AppHeaderActions`), `NavLink`, `AppFooter`, `BrandMark` |
+| Theme | `defineTheme`, `applyTheme`, `ThemeScript`, `ThemeToggle`, `setThemeMode`, `useThemeMode` |
 
-Not registry items in shadcn, built here as compositions: **`DataTable`** (TanStack Table v8 with sorting, filter and pagination; `DataTableColumnHeader` for sortable headers), **`DatePicker`** (Popover + Calendar, pt-BR by default) and **`Typography`**. _Toast_ is **Sonner** (`Toaster` + `toast`), and it follows `data-theme` instead of next-themes.
+Not registry items in shadcn, built here as compositions: **`DataTable`** (TanStack Table v8 with sorting, filter and pagination; `DataTableColumnHeader` for sortable headers), **`DatePicker`** (Popover + Calendar, pt-BR by default) and **`Typography`**. *Toast* is **Sonner** (`Toaster` + `toast`), and it follows `data-theme` instead of next-themes.
 
 What the design system changes on top of shadcn:
 
