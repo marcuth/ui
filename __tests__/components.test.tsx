@@ -4,6 +4,9 @@ import { describe, expect, it } from "vitest"
 import {
     AppFooter,
     AppHeader,
+    AppHeaderActions,
+    AppHeaderBrand,
+    AppHeaderNav,
     Background,
     BackgroundGrid,
     BackgroundNoise,
@@ -121,16 +124,26 @@ describe("Field (shadcn)", () => {
 describe("app shell", () => {
     it("renders AppHeader navigation with the current page marked", () => {
         render(
-            <AppHeader brand={<BrandMark name="marcuth" />}>
-                <NavLink href="/" active>
-                    Início
-                </NavLink>
-                <NavLink href="/projetos">Projetos</NavLink>
+            <AppHeader>
+                <AppHeaderBrand>
+                    <BrandMark name="marcuth" />
+                </AppHeaderBrand>
+                <AppHeaderNav>
+                    <NavLink href="/" active>
+                        Início
+                    </NavLink>
+                    <NavLink href="/projetos">Projetos</NavLink>
+                </AppHeaderNav>
+                <AppHeaderActions>
+                    <ThemeToggle />
+                </AppHeaderActions>
             </AppHeader>,
         )
         expect(screen.getByRole("navigation", { name: "Main" })).toBeInTheDocument()
         expect(screen.getByRole("link", { name: "Início" })).toHaveAttribute("aria-current", "page")
         expect(screen.getByRole("link", { name: "Projetos" })).not.toHaveAttribute("aria-current")
+        expect(screen.getByRole("img", { name: "marcuth.marcuth.dev" })).toBeInTheDocument()
+        expect(screen.getByRole("button", { name: "Toggle color theme" })).toBeInTheDocument()
     })
 
     it("renders AppFooter groups with internal and external links", () => {

@@ -1,6 +1,9 @@
 import {
     Anchor,
     AppHeader,
+    AppHeaderActions,
+    AppHeaderBrand,
+    AppHeaderNav,
     BrandMark,
     Card,
     CardDescription,
@@ -21,19 +24,22 @@ import { LuArrowUpRight } from "@marcuth/ui/icons/lucide"
 export default function ProjectsPage() {
     return (
         <>
-            <AppHeader
-                brand={
+            <AppHeader>
+                <AppHeaderBrand>
                     <Anchor href="/">
                         <BrandMark />
                     </Anchor>
-                }
-                actions={<ThemeToggle />}
-            >
-                <NavLink href="/">Home</NavLink>
-                <NavLink href="/components">Components</NavLink>
-                <NavLink href="/projects" active>
-                    Projects
-                </NavLink>
+                </AppHeaderBrand>
+                <AppHeaderNav>
+                    <NavLink href="/">Home</NavLink>
+                    <NavLink href="/components">Components</NavLink>
+                    <NavLink href="/projects" active>
+                        Projects
+                    </NavLink>
+                </AppHeaderNav>
+                <AppHeaderActions>
+                    <ThemeToggle />
+                </AppHeaderActions>
             </AppHeader>
             <Container className="py-section">
                 <Stack gap={6}>

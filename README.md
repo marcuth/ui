@@ -150,7 +150,7 @@ Every shadcn/ui component, generated with the **shadcn CLI** (`radix-nova` style
 | Layout | `Accordion*`, `Collapsible*`, `AspectRatio`, `Carousel*`, `Resizable*`, `ScrollArea`, `Separator`, `DirectionProvider`, `Container`, `Stack`, `Inline`, `Section` |
 | Feedback | `Toaster` + `toast` (Sonner), `Alert*` |
 | Typography | `Typography.H1…H4/P/Lead/Large/Small/Muted/Blockquote/List/InlineCode`, `Heading`, `Text`, `Eyebrow`, `Code` |
-| App shell | `AppHeader`, `NavLink`, `AppFooter`, `BrandMark` |
+| App shell | `AppHeader` (`AppHeaderBrand`, `AppHeaderNav`, `AppHeaderActions`), `NavLink`, `AppFooter`, `BrandMark` |
 | Theme | `defineTheme`, `applyTheme`, `ThemeScript`, `ThemeToggle`, `setThemeMode`, `useThemeMode` |
 
 Not registry items in shadcn, built here as compositions: **`DataTable`** (TanStack Table v8 with sorting, filter and pagination; `DataTableColumnHeader` for sortable headers), **`DatePicker`** (Popover + Calendar, pt-BR by default) and **`Typography`**. *Toast* is **Sonner** (`Toaster` + `toast`), and it follows `data-theme` instead of next-themes.

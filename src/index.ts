@@ -100,7 +100,15 @@ export * from "@/components/ui/link"
 export { DataTable, DataTableColumnHeader, type ColumnDef, type DataTableProps } from "@/components/data-table"
 export { DatePicker, type DatePickerProps } from "@/components/date-picker"
 export { AppFooter, type AppFooterProps, type FooterLink, type FooterLinkGroup } from "@/components/app-footer"
-export { AppHeader, NavLink, type AppHeaderProps, type NavLinkProps } from "@/components/app-header"
+export {
+    AppHeader,
+    AppHeaderActions,
+    AppHeaderBrand,
+    AppHeaderNav,
+    NavLink,
+    type AppHeaderProps,
+    type NavLinkProps,
+} from "@/components/app-header"
 export { BRAND_DOMAIN, BrandMark, brandName, type BrandMarkProps } from "@/components/brand-mark"
 export {
     Background,

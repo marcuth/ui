@@ -4,6 +4,9 @@ import {
     Anchor,
     AppFooter,
     AppHeader,
+    AppHeaderActions,
+    AppHeaderBrand,
+    AppHeaderNav,
     applyTheme,
     Badge,
     BrandMark,
@@ -75,30 +78,29 @@ export function Playground() {
 
     return (
         <>
-            <AppHeader
-                brand={
+            <AppHeader>
+                <AppHeaderBrand>
                     <Anchor href="/">
                         <BrandMark name={sites[site].name} />
                     </Anchor>
-                }
-                actions={
-                    <>
-                        <ThemeToggle />
-                        <Button variant="brand" size="sm" asChild>
-                            <Anchor href="#contact">
-                                <Emoji emoji="💬" className="mr-1.5" />
-                                Contact
-                            </Anchor>
-                        </Button>
-                    </>
-                }
-            >
-                <NavLink href="/" active>
-                    Home
-                </NavLink>
-                <NavLink href="/components">Components</NavLink>
-                <NavLink href="/projects">Projects</NavLink>
-                <NavLink href="https://github.com/marcuth">GitHub</NavLink>
+                </AppHeaderBrand>
+                <AppHeaderNav>
+                    <NavLink href="/" active>
+                        Home
+                    </NavLink>
+                    <NavLink href="/components">Components</NavLink>
+                    <NavLink href="/projects">Projects</NavLink>
+                    <NavLink href="https://github.com/marcuth">GitHub</NavLink>
+                </AppHeaderNav>
+                <AppHeaderActions>
+                    <ThemeToggle />
+                    <Button variant="brand" size="sm" asChild>
+                        <Anchor href="#contact">
+                            <Emoji emoji="💬" className="mr-1.5" />
+                            Contact
+                        </Anchor>
+                    </Button>
+                </AppHeaderActions>
             </AppHeader>
 
             <Container size="xl" className="grid gap-10 py-10 lg:grid-cols-[260px_1fr]">
