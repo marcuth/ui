@@ -81,11 +81,69 @@ export function Code({ className, ...props }: ComponentProps<"code">) {
     return (
         <code
             data-slot="code"
-            className={cn(
-                "rounded-[calc(var(--ui-radius-control)/2)] bg-muted px-1.5 py-0.5 font-mono text-[0.9em]",
-                className,
-            )}
+            className={cn("rounded-sm bg-muted px-1.5 py-0.5 font-mono text-[0.9em]", className)}
             {...props}
         />
     )
+}
+
+/** Larger intro paragraph under a page title. */
+export function Lead({ className, ...props }: ComponentProps<"p">) {
+    return <p data-slot="lead" className={cn("text-xl leading-relaxed text-muted-foreground", className)} {...props} />
+}
+
+export function Large({ className, ...props }: ComponentProps<"div">) {
+    return <div data-slot="large" className={cn("text-lg font-semibold", className)} {...props} />
+}
+
+export function Small({ className, ...props }: ComponentProps<"small">) {
+    return <small data-slot="small" className={cn("text-sm leading-none font-medium", className)} {...props} />
+}
+
+export function Muted({ className, ...props }: ComponentProps<"p">) {
+    return <p data-slot="muted" className={cn("text-sm text-muted-foreground", className)} {...props} />
+}
+
+export function Blockquote({ className, ...props }: ComponentProps<"blockquote">) {
+    return (
+        <blockquote
+            data-slot="blockquote"
+            className={cn("border-l-2 border-brand-border pl-6 text-muted-foreground italic", className)}
+            {...props}
+        />
+    )
+}
+
+export function List({ className, ...props }: ComponentProps<"ul">) {
+    return <ul data-slot="list" className={cn("ml-6 list-disc [&>li]:mt-2", className)} {...props} />
+}
+
+type LevelProps = Omit<HeadingProps, "level">
+
+/**
+ * shadcn's typography scale as one namespace, so pages never reach for raw `<h1>`/`<p>`:
+ *
+ * ```tsx
+ * <Typography.H1>Título</Typography.H1>
+ * <Typography.Lead>Introdução</Typography.Lead>
+ * <Typography.P>Texto</Typography.P>
+ * <Typography.Muted>Secundário</Typography.Muted>
+ * ```
+ */
+export const Typography = {
+    H1: (props: LevelProps) => <Heading level={1} {...props} />,
+    H2: ({ className, ...props }: LevelProps) => (
+        <Heading level={2} className={cn("border-b pb-2 first:mt-0", className)} {...props} />
+    ),
+    H3: (props: LevelProps) => <Heading level={3} {...props} />,
+    H4: (props: LevelProps) => <Heading level={4} {...props} />,
+    P: ({ className, ...props }: TextProps) => <Text className={cn("not-first:mt-6", className)} {...props} />,
+    Lead,
+    Large,
+    Small,
+    Muted,
+    Blockquote,
+    List,
+    InlineCode: Code,
+    Eyebrow,
 }
