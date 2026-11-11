@@ -29,6 +29,16 @@ import {
     Link,
     NavLink,
     NotFoundPage,
+    Questionnaire,
+    QuestionnaireActions,
+    QuestionnaireChoice,
+    QuestionnaireChoices,
+    QuestionnaireItem,
+    QuestionnaireNext,
+    QuestionnairePrevious,
+    QuestionnaireProgress,
+    QuestionnaireSubmit,
+    QuestionnaireTitle,
     Section,
     ServerErrorPage,
     Textarea,
@@ -335,6 +345,43 @@ describe("CodeBlock syntax highlighting", () => {
         )
         expect(container.querySelector("[data-slot=code-block-code]")).toHaveTextContent("+++")
         expect(container.querySelectorAll("span[style]")).toHaveLength(0)
+    })
+})
+
+describe("Questionnaire", () => {
+    it("shows one question at a time and moves forward once answered", async () => {
+        render(
+            <Questionnaire
+                items={[
+                    { name: "role", required: true, choices: [{ value: "dev" }, { value: "design" }] },
+                    { name: "stack", choices: [{ value: "react" }] },
+                ]}
+            >
+                <QuestionnaireProgress />
+                <QuestionnaireItem name="role" required>
+                    <QuestionnaireTitle>Qual é a sua função?</QuestionnaireTitle>
+                    <QuestionnaireChoices>
+                        <QuestionnaireChoice value="dev">Desenvolvimento</QuestionnaireChoice>
+                        <QuestionnaireChoice value="design">Design</QuestionnaireChoice>
+                    </QuestionnaireChoices>
+                </QuestionnaireItem>
+                <QuestionnaireItem name="stack">
+                    <QuestionnaireTitle>Quais tecnologias?</QuestionnaireTitle>
+                    <QuestionnaireChoices>
+                        <QuestionnaireChoice value="react">React</QuestionnaireChoice>
+                    </QuestionnaireChoices>
+                </QuestionnaireItem>
+                <QuestionnaireActions>
+                    <QuestionnairePrevious />
+                    <QuestionnaireNext />
+                    <QuestionnaireSubmit />
+                </QuestionnaireActions>
+            </Questionnaire>,
+        )
+        expect(screen.getByText("Qual é a sua função?")).toBeVisible()
+        fireEvent.click(screen.getByLabelText("Design"))
+        fireEvent.click(screen.getByRole("button", { name: "Next" }))
+        await waitFor(() => expect(screen.getByText("Quais tecnologias?")).toBeVisible())
     })
 })
 

@@ -168,6 +168,20 @@ import {
     PopoverContent,
     PopoverTrigger,
     Progress,
+    Questionnaire,
+    QuestionnaireActions,
+    QuestionnaireChoice,
+    QuestionnaireChoices,
+    QuestionnaireDescription,
+    QuestionnaireError,
+    QuestionnaireInput,
+    QuestionnaireItem,
+    QuestionnaireNext,
+    QuestionnairePrevious,
+    QuestionnaireProgress,
+    QuestionnaireSkip,
+    QuestionnaireSubmit,
+    QuestionnaireTitle,
     RadioGroup,
     RadioGroupItem,
     ResizableHandle,
@@ -1352,9 +1366,56 @@ export const previews: Record<string, ReactNode> = {
 
     questionnaire: (
         <PreviewWrapper>
-            <p className="text-sm text-muted-foreground">
-                Questionnaire — formulário de perguntas sequenciais para onboarding ou pesquisas.
-            </p>
+            <div className="w-full max-w-md">
+                <Questionnaire
+                    shortcuts="numbers"
+                    items={[
+                        {
+                            name: "role",
+                            required: true,
+                            choices: [{ value: "dev" }, { value: "design" }, { value: "other" }],
+                        },
+                        { name: "stack", choices: [{ value: "react" }, { value: "node" }, { value: "rust" }] },
+                        { name: "goal", required: true },
+                    ]}
+                    onSubmit={(event) => event.preventDefault()}
+                >
+                    <QuestionnaireProgress />
+
+                    <QuestionnaireItem name="role" required>
+                        <QuestionnaireTitle>Qual é a sua função?</QuestionnaireTitle>
+                        <QuestionnaireChoices>
+                            <QuestionnaireChoice value="dev">Desenvolvimento</QuestionnaireChoice>
+                            <QuestionnaireChoice value="design">Design</QuestionnaireChoice>
+                            <QuestionnaireChoice value="other">Outra</QuestionnaireChoice>
+                        </QuestionnaireChoices>
+                        <QuestionnaireError>Escolha uma opção para continuar.</QuestionnaireError>
+                    </QuestionnaireItem>
+
+                    <QuestionnaireItem name="stack" multiple>
+                        <QuestionnaireTitle>Quais tecnologias você usa?</QuestionnaireTitle>
+                        <QuestionnaireDescription>Pode marcar mais de uma.</QuestionnaireDescription>
+                        <QuestionnaireChoices>
+                            <QuestionnaireChoice value="react">React</QuestionnaireChoice>
+                            <QuestionnaireChoice value="node">Node.js</QuestionnaireChoice>
+                            <QuestionnaireChoice value="rust">Rust</QuestionnaireChoice>
+                        </QuestionnaireChoices>
+                    </QuestionnaireItem>
+
+                    <QuestionnaireItem name="goal" required>
+                        <QuestionnaireTitle>O que você quer construir?</QuestionnaireTitle>
+                        <QuestionnaireInput placeholder="Uma ideia, em uma frase" />
+                        <QuestionnaireError>Conte um pouco para continuar.</QuestionnaireError>
+                    </QuestionnaireItem>
+
+                    <QuestionnaireActions>
+                        <QuestionnairePrevious>Voltar</QuestionnairePrevious>
+                        <QuestionnaireSkip>Pular</QuestionnaireSkip>
+                        <QuestionnaireNext variant="brand">Próxima</QuestionnaireNext>
+                        <QuestionnaireSubmit variant="brand">Enviar</QuestionnaireSubmit>
+                    </QuestionnaireActions>
+                </Questionnaire>
+            </div>
         </PreviewWrapper>
     ),
 
