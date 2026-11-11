@@ -17,6 +17,11 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
     AlertTitle,
+    AppFooter,
+    AppHeader,
+    AppHeaderActions,
+    AppHeaderBrand,
+    AppHeaderNav,
     AspectRatio,
     Attachment,
     AttachmentContent,
@@ -34,6 +39,7 @@ import {
     BackgroundLines,
     BackgroundNoise,
     Badge,
+    BrandMark,
     Breadcrumb,
     BreadcrumbItem,
     BreadcrumbLink,
@@ -157,6 +163,7 @@ import {
     MessageContent,
     NativeSelect,
     NativeSelectOption,
+    NavLink,
     NotFoundPage,
     Pagination,
     PaginationContent,
@@ -188,6 +195,7 @@ import {
     ResizablePanel,
     ResizablePanelGroup,
     ScrollArea,
+    Section,
     Select,
     SelectContent,
     SelectItem,
@@ -227,6 +235,7 @@ import {
     TabsList,
     TabsTrigger,
     Text,
+    ThemeToggle,
     toast,
     Toggle,
     ToggleGroup,
@@ -805,6 +814,68 @@ export const previews: Record<string, ReactNode> = {
                         Conteúdo
                     </SidebarInset>
                 </SidebarProvider>
+            </div>
+        </PreviewWrapper>
+    ),
+
+    "theme-toggle": (
+        <PreviewWrapper>
+            <div className="flex flex-wrap items-center gap-3">
+                <ThemeToggle />
+                <ThemeToggle variant="outline" />
+                <ThemeToggle variant="secondary" size="icon-sm" />
+                <ThemeToggle variant="brand" size="icon-lg" />
+            </div>
+            <p className="text-sm text-muted-foreground">
+                Click to switch: the new theme grows from the button. Pass{" "}
+                <code className="font-mono">domain=&quot;.marcuth.dev&quot;</code> to share the choice across
+                subdomains, and add <code className="font-mono">&lt;ThemeScript /&gt;</code> to the root layout to avoid
+                a flash on load.
+            </p>
+        </PreviewWrapper>
+    ),
+
+    "theme-scope": (
+        <PreviewWrapper>
+            <div className="flex w-full flex-col gap-4">
+                <div className="overflow-hidden rounded-lg border">
+                    <AppHeader theme="dark" sticky={false}>
+                        <AppHeaderBrand>
+                            <BrandMark name="ui" />
+                        </AppHeaderBrand>
+                        <AppHeaderNav>
+                            <NavLink href="/components" active>
+                                Components
+                            </NavLink>
+                            <NavLink href="/projects">Projects</NavLink>
+                        </AppHeaderNav>
+                        <AppHeaderActions>
+                            <Button variant="brand" size="sm">
+                                Contact
+                            </Button>
+                        </AppHeaderActions>
+                    </AppHeader>
+                </div>
+                <Section inverse spacing="sm" className="rounded-lg border px-6">
+                    <p className="text-sm">
+                        <code className="font-mono">{"<Section inverse>"}</code> takes the opposite of the surrounding
+                        theme: dark on a light page, light on a dark one.
+                    </p>
+                </Section>
+                <Section theme="dark" spacing="sm" className="rounded-lg border px-6">
+                    <p className="text-sm">
+                        <code className="font-mono">{'<Section theme="dark">'}</code> flips this band and everything
+                        inside it.
+                    </p>
+                </Section>
+                <div className="overflow-hidden rounded-lg border">
+                    <AppFooter
+                        theme="dark"
+                        brand={<BrandMark name="ui" />}
+                        tagline="Footer in the opposite theme."
+                        bottom={<span>© marcuth.dev</span>}
+                    />
+                </div>
             </div>
         </PreviewWrapper>
     ),

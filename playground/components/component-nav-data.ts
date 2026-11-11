@@ -71,6 +71,24 @@ export const navGroups: NavGroup[] = [
         ],
     },
     {
+        title: "Theme",
+        items: [
+            {
+                slug: "theme-toggle",
+                label: "Theme Toggle",
+                description: "Light/dark switch with an expanding circular reveal, persisted in a cookie.",
+                badge: "New",
+            },
+            {
+                slug: "theme-scope",
+                label: "Theme Scope",
+                description:
+                    "The `theme` and `inverse` props on AppHeader, AppFooter, Section, Background and error pages.",
+                badge: "New",
+            },
+        ],
+    },
+    {
         title: "Typography & Icons",
         items: [
             {
