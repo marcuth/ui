@@ -20,11 +20,71 @@ function withoutTransitions(change: () => void) {
     requestAnimationFrame(() => style.remove())
 }
 
-export function setThemeMode(mode: ResolvedThemeMode, options: ThemeCookieOptions = {}): void {
-    withoutTransitions(() => {
+export type ThemeTransitionOrigin = { x: number; y: number }
+
+const REVEAL_DURATION = 450
+
+/**
+ * Circular reveal: the new theme grows out of `origin` over the old one (View Transitions API).
+ * The browser's default root crossfade is switched off for the duration, and the whole thing is
+ * skipped under reduced motion or where the API is missing.
+ */
+function revealTheme(change: () => void, origin: ThemeTransitionOrigin) {
+    const root = document.documentElement
+    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+
+    if (reduced || typeof document.startViewTransition !== "function") {
+        withoutTransitions(change)
+        return
+    }
+
+    const style = document.createElement("style")
+    style.textContent =
+        "::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}" +
+        "::view-transition-old(root){z-index:0}::view-transition-new(root){z-index:1}"
+    document.head.appendChild(style)
+
+    const transition = document.startViewTransition(() => withoutTransitions(change))
+    const radius = Math.hypot(
+        Math.max(origin.x, window.innerWidth - origin.x),
+        Math.max(origin.y, window.innerHeight - origin.y),
+    )
+
+    transition.ready
+        .then(() => {
+            root.animate(
+                {
+                    clipPath: [
+                        `circle(0px at ${origin.x}px ${origin.y}px)`,
+                        `circle(${radius}px at ${origin.x}px ${origin.y}px)`,
+                    ],
+                },
+                {
+                    duration: REVEAL_DURATION,
+                    easing: "cubic-bezier(0.23, 1, 0.32, 1)",
+                    pseudoElement: "::view-transition-new(root)",
+                },
+            )
+        })
+        .catch(() => {})
+    void transition.finished.finally(() => style.remove())
+}
+
+/**
+ * Sets `data-theme` and the cookie. Pass `origin` (viewport coordinates) to animate the change
+ * as a circular reveal growing from that point.
+ */
+export function setThemeMode(
+    mode: ResolvedThemeMode,
+    options: ThemeCookieOptions & { origin?: ThemeTransitionOrigin } = {},
+): void {
+    const { origin, ...cookie } = options
+    const change = () => {
         document.documentElement.dataset.theme = mode
-    })
-    document.cookie = serializeThemeCookie(mode, options)
+    }
+    if (origin) revealTheme(change, origin)
+    else withoutTransitions(change)
+    document.cookie = serializeThemeCookie(mode, cookie)
 }
 
 /**
@@ -56,7 +116,12 @@ export function ThemeToggle({
         onClick?.(event)
         if (event.defaultPrevented) return
         const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark"
-        setThemeMode(next, { domain, cookieName })
+        const rect = event.currentTarget.getBoundingClientRect()
+        setThemeMode(next, {
+            domain,
+            cookieName,
+            origin: { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 },
+        })
     }
 
     return (

@@ -27,7 +27,12 @@ export {
 export { ThemeScript, type ThemeScriptProps } from "@/theme/theme-script"
 export { useIsMobile } from "@/hooks/use-mobile"
 export { useThemeMode } from "@/hooks/use-theme-mode"
-export { setThemeMode, ThemeToggle, type ThemeToggleProps } from "@/components/theme/theme-toggle"
+export {
+    setThemeMode,
+    ThemeToggle,
+    type ThemeToggleProps,
+    type ThemeTransitionOrigin,
+} from "@/components/theme/theme-toggle"
 
 // shadcn/ui (generated with the CLI, adapted to the theme tokens)
 export * from "@/components/ui/accordion"

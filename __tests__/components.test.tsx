@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { describe, expect, it, vi } from "vitest"
 
 import {
     AppFooter,
@@ -335,5 +335,45 @@ describe("CodeBlock syntax highlighting", () => {
         )
         expect(container.querySelector("[data-slot=code-block-code]")).toHaveTextContent("+++")
         expect(container.querySelectorAll("span[style]")).toHaveLength(0)
+    })
+})
+
+describe("ThemeToggle reveal", () => {
+    it("animates a circular reveal from the button when View Transitions exist", async () => {
+        document.documentElement.dataset.theme = "dark"
+        const animate = vi.fn()
+        document.documentElement.animate = animate
+        const startViewTransition = vi.fn((update: () => void) => {
+            update()
+            return { ready: Promise.resolve(), finished: Promise.resolve() }
+        })
+        Object.assign(document, { startViewTransition })
+        window.matchMedia = ((query: string) => ({ matches: false, media: query })) as typeof window.matchMedia
+
+        render(<ThemeToggle />)
+        fireEvent.click(screen.getByRole("button", { name: "Toggle color theme" }))
+
+        expect(startViewTransition).toHaveBeenCalledOnce()
+        expect(document.documentElement.dataset.theme).toBe("light")
+        await waitFor(() => expect(animate).toHaveBeenCalled())
+        const [keyframes, options] = animate.mock.calls[0] as [{ clipPath: string[] }, KeyframeAnimationOptions]
+        expect(keyframes.clipPath[0]).toMatch(/^circle\(0px at /)
+        expect(options.pseudoElement).toBe("::view-transition-new(root)")
+
+        Reflect.deleteProperty(document, "startViewTransition")
+    })
+
+    it("skips the reveal under reduced motion", () => {
+        document.documentElement.dataset.theme = "dark"
+        const startViewTransition = vi.fn()
+        Object.assign(document, { startViewTransition })
+        window.matchMedia = ((query: string) => ({ matches: true, media: query })) as typeof window.matchMedia
+
+        render(<ThemeToggle />)
+        fireEvent.click(screen.getByRole("button", { name: "Toggle color theme" }))
+
+        expect(startViewTransition).not.toHaveBeenCalled()
+        expect(document.documentElement.dataset.theme).toBe("light")
+        Reflect.deleteProperty(document, "startViewTransition")
     })
 })
