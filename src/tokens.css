@@ -85,7 +85,10 @@
 }
 
 :root,
-[data-theme="light"] {
+[data-theme="light"],
+/* inverse: the opposite of the surrounding theme (a second level flips back). */
+[data-theme="dark"] [data-inverse],
+[data-theme="light"] [data-inverse] [data-inverse] {
     color-scheme: light;
 
     /* Neutrals: shadcn zinc, exactly as on marcuth.dev. */
@@ -142,7 +145,10 @@
     --warning-ink: color-mix(in oklab, var(--warning) 60%, var(--foreground));
 }
 
-[data-theme="dark"] {
+[data-theme="dark"],
+[data-theme="light"] [data-inverse],
+:root:not([data-theme]) [data-inverse],
+[data-theme="dark"] [data-inverse] [data-inverse] {
     color-scheme: dark;
 
     --background: oklch(0.141 0.005 285.823);
@@ -195,7 +201,7 @@
     --warning-ink: var(--warning);
 }
 
-:where(:root, [data-theme]) {
+:where(:root, [data-theme], [data-inverse]) {
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--ui-font-sans);

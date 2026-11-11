@@ -3,11 +3,13 @@ import type { ComponentProps } from "react"
 import { Container } from "@/components/layout"
 import { Anchor, type AnchorProps } from "@/components/ui/link"
 import { cn } from "@/lib/utils"
+import { themeScope, type ThemeScopeProps } from "@/theme/scope"
 
-export type AppHeaderProps = ComponentProps<"header"> & {
-    /** Stick to the top with a translucent background. */
-    sticky?: boolean
-}
+export type AppHeaderProps = ComponentProps<"header"> &
+    ThemeScopeProps & {
+        /** Stick to the top with a translucent background. */
+        sticky?: boolean
+    }
 
 /**
  * Shared app header, composed from its parts:
@@ -18,10 +20,11 @@ export type AppHeaderProps = ComponentProps<"header"> & {
  *         <AppHeaderActions><ThemeToggle /></AppHeaderActions>
  *     </AppHeader>
  */
-export function AppHeader({ className, sticky = true, children, ...props }: AppHeaderProps) {
+export function AppHeader({ className, sticky = true, theme, inverse, children, ...props }: AppHeaderProps) {
     return (
         <header
             data-slot="app-header"
+            {...themeScope({ theme, inverse })}
             className={cn(
                 "z-40 w-full border-b bg-background/80 backdrop-blur-md",
                 sticky && "sticky top-0",

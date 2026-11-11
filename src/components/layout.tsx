@@ -3,6 +3,7 @@ import { Slot } from "radix-ui"
 import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
+import { themeScope, type ThemeScopeProps } from "@/theme/scope"
 
 export const containerVariants = cva("mx-auto w-full px-5 sm:px-8", {
     variants: {
@@ -67,20 +68,13 @@ export const sectionVariants = cva("", {
     defaultVariants: { spacing: "md", tone: "default" },
 })
 
-export type SectionProps = ComponentProps<"section"> &
-    VariantProps<typeof sectionVariants> & {
-        /**
-         * Flip this section to the other theme (e.g. a dark band on a light page).
-         * Tokens re-derive inside, so every component adapts.
-         */
-        theme?: "light" | "dark"
-    }
+export type SectionProps = ComponentProps<"section"> & VariantProps<typeof sectionVariants> & ThemeScopeProps
 
-export function Section({ className, spacing, tone, theme, ...props }: SectionProps) {
+export function Section({ className, spacing, tone, theme, inverse, ...props }: SectionProps) {
     return (
         <section
             data-slot="section"
-            data-theme={theme}
+            {...themeScope({ theme, inverse })}
             className={cn(sectionVariants({ spacing, tone }), className)}
             {...props}
         />

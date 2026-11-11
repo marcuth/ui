@@ -1,6 +1,7 @@
 import type { ComponentProps, CSSProperties } from "react"
 
 import { cn } from "@/lib/utils"
+import { themeScope, type ThemeScopeProps } from "@/theme/scope"
 
 /*
  * Background patterns. Server-safe, pure CSS (gradients, masks, filters): no JS, no images.
@@ -62,8 +63,15 @@ function Layer({ className, fade = "none", style, ...props }: LayerProps) {
 }
 
 /** Clipped, positioned surface that hosts the pattern layers behind its children. */
-export function Background({ className, ...props }: ComponentProps<"div">) {
-    return <div data-slot="background" className={cn("relative isolate overflow-hidden", className)} {...props} />
+export function Background({ className, theme, inverse, ...props }: ComponentProps<"div"> & ThemeScopeProps) {
+    return (
+        <div
+            data-slot="background"
+            {...themeScope({ theme, inverse })}
+            className={cn("relative isolate overflow-hidden", className)}
+            {...props}
+        />
+    )
 }
 
 export type BackgroundGridProps = LayerProps & {

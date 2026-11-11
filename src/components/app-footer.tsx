@@ -3,26 +3,43 @@ import type { ComponentProps, ReactNode } from "react"
 import { Container } from "@/components/layout"
 import { Link } from "@/components/ui/link"
 import { cn } from "@/lib/utils"
+import { themeScope, type ThemeScopeProps } from "@/theme/scope"
 
 export type FooterLink = { label: string; href: string }
 export type FooterLinkGroup = { title: string; links: FooterLink[] }
 
-export type AppFooterProps = ComponentProps<"footer"> & {
-    brand?: ReactNode
-    /** Short line under the brand. */
-    tagline?: ReactNode
-    /**
-     * Link columns, e.g. one listing every subdomain so the sites cross-link.
-     * Internal hrefs use Next.js `<Link>`; http(s) URLs open in a new tab.
-     */
-    groups?: FooterLinkGroup[]
-    /** Bottom row: copyright, legal links. */
-    bottom?: ReactNode
-}
+export type AppFooterProps = ComponentProps<"footer"> &
+    ThemeScopeProps & {
+        brand?: ReactNode
+        /** Short line under the brand. */
+        tagline?: ReactNode
+        /**
+         * Link columns, e.g. one listing every subdomain so the sites cross-link.
+         * Internal hrefs use Next.js `<Link>`; http(s) URLs open in a new tab.
+         */
+        groups?: FooterLinkGroup[]
+        /** Bottom row: copyright, legal links. */
+        bottom?: ReactNode
+    }
 
-export function AppFooter({ className, brand, tagline, groups = [], bottom, children, ...props }: AppFooterProps) {
+export function AppFooter({
+    className,
+    brand,
+    tagline,
+    groups = [],
+    bottom,
+    theme,
+    inverse,
+    children,
+    ...props
+}: AppFooterProps) {
     return (
-        <footer data-slot="app-footer" className={cn("border-t", className)} {...props}>
+        <footer
+            data-slot="app-footer"
+            {...themeScope({ theme, inverse })}
+            className={cn("border-t", className)}
+            {...props}
+        >
             <Container size="xl" className="flex flex-col gap-10 py-12">
                 <div className="flex flex-col gap-10 md:flex-row md:justify-between">
                     {brand || tagline ? (

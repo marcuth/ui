@@ -424,3 +424,47 @@ describe("ThemeToggle reveal", () => {
         Reflect.deleteProperty(document, "startViewTransition")
     })
 })
+
+describe("theme prop", () => {
+    it("scopes AppHeader, AppFooter, Background and error pages to the given theme", () => {
+        const { container } = render(
+            <>
+                <AppHeader theme="dark">
+                    <AppHeaderBrand>
+                        <BrandMark />
+                    </AppHeaderBrand>
+                </AppHeader>
+                <AppFooter theme="dark" />
+                <Background theme="light" />
+                <NotFoundPage theme="dark" />
+                <AppHeader />
+            </>,
+        )
+        expect(container.querySelector("[data-slot=app-header][data-theme=dark]")).toBeInTheDocument()
+        expect(container.querySelector("[data-slot=app-footer][data-theme=dark]")).toBeInTheDocument()
+        expect(container.querySelector("[data-slot=background][data-theme=light]")).toBeInTheDocument()
+        expect(container.querySelector("[data-slot=background][data-theme=dark]")).toBeInTheDocument()
+        // Without the prop no attribute is set, so the header follows the page theme.
+        expect(container.querySelectorAll("[data-slot=app-header]")[1]).not.toHaveAttribute("data-theme")
+    })
+})
+
+describe("inverse prop", () => {
+    it("marks the part as inverse and lets an explicit theme win", () => {
+        const { container } = render(
+            <>
+                <AppHeader inverse />
+                <AppFooter inverse />
+                <Background inverse />
+                <Background inverse theme="dark" />
+            </>,
+        )
+        expect(container.querySelector("[data-slot=app-header]")).toHaveAttribute("data-inverse")
+        expect(container.querySelector("[data-slot=app-footer]")).toHaveAttribute("data-inverse")
+        const [plain, explicit] = container.querySelectorAll("[data-slot=background]")
+        expect(plain).toHaveAttribute("data-inverse")
+        expect(plain).not.toHaveAttribute("data-theme")
+        expect(explicit).toHaveAttribute("data-theme", "dark")
+        expect(explicit).not.toHaveAttribute("data-inverse")
+    })
+})

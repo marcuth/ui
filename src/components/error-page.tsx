@@ -6,6 +6,7 @@ import { Heading, Text } from "@/components/typography"
 import { Button } from "@/components/ui/button"
 import { Anchor } from "@/components/ui/link"
 import { cn } from "@/lib/utils"
+import type { ThemeScopeProps } from "@/theme/scope"
 
 /*
  * Error pages shared by marcuth.dev and every subdomain. `ErrorPage` is the base layout; the
@@ -42,7 +43,7 @@ export type ErrorPageProps = Omit<ComponentProps<"main">, "title"> & {
     plain?: boolean
     /** Classes for the outer surface (e.g. to contain the page inside a frame). */
     surfaceClassName?: string
-}
+} & ThemeScopeProps
 
 export function ErrorPage({
     code,
@@ -54,11 +55,13 @@ export function ErrorPage({
     children,
     plain = false,
     surfaceClassName,
+    theme,
+    inverse,
     className,
     ...props
 }: ErrorPageProps) {
     return (
-        <Background className={cn("min-h-dvh bg-background", surfaceClassName)}>
+        <Background theme={theme} inverse={inverse} className={cn("min-h-dvh bg-background", surfaceClassName)}>
             {plain ? null : (
                 <>
                     <BackgroundGrid fade="radial" opacity={8} />
@@ -131,16 +134,7 @@ export function ErrorPageActions({ name, homeHref = "/", homeLabel = "Voltar ao 
     )
 }
 
-export type PresetProps = Omit<ComponentProps<"main">, "title"> & {
-    title?: ReactNode
-    description?: ReactNode
-    name?: string
-    homeHref?: string
-    actions?: ReactNode
-    children?: ReactNode
-    plain?: boolean
-    surfaceClassName?: string
-}
+export type PresetProps = Omit<ErrorPageProps, "code" | "title"> & { title?: ReactNode }
 
 export function NotFoundPage({ title = "Página não encontrada", description, ...props }: PresetProps) {
     return (

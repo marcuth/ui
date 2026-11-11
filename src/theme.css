@@ -12,7 +12,18 @@
 /* Let the app's Tailwind generate the classes used by the library's components. */
 @source "./";
 
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+/*
+ * `dark:` follows the theme in effect: a dark page, or an inverse band on a light page. An inverse
+ * band on a dark page is light, so it opts out.
+ */
+@custom-variant dark {
+    &:where([data-theme="dark"], [data-theme="dark"] *):not(:where([data-inverse], [data-inverse] *)) {
+        @slot;
+    }
+    &:where([data-theme="light"] [data-inverse], [data-theme="light"] [data-inverse] *) {
+        @slot;
+    }
+}
 
 @theme inline {
     --color-background: var(--background);

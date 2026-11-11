@@ -24,6 +24,7 @@ export {
     type ThemeCookieOptions,
     type ThemeMode,
 } from "@/theme/mode"
+export { themeScope, type ThemeScopeProps } from "@/theme/scope"
 export { ThemeScript, type ThemeScriptProps } from "@/theme/theme-script"
 export { useIsMobile } from "@/hooks/use-mobile"
 export { useThemeMode } from "@/hooks/use-theme-mode"
