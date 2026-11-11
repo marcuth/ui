@@ -1,0 +1,153 @@
+/*
+ * Tailwind v4 entry for @marcuth/ui. In the app's globals.css:
+ *
+ *   @import "tailwindcss";
+ *   @import "@marcuth/ui/theme.css";
+ */
+
+@import "./tokens.css";
+
+/* Let the app's Tailwind generate the classes used by the library's components. */
+@source "./";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-success: var(--success);
+    --color-warning: var(--warning);
+    --color-success-ink: var(--success-ink);
+    --color-warning-ink: var(--warning-ink);
+
+    --color-brand: var(--brand);
+    --color-brand-foreground: var(--brand-foreground);
+    --color-brand-subtle: var(--brand-subtle);
+    --color-brand-border: var(--brand-border);
+    --color-brand-ink: var(--brand-ink);
+
+    --font-sans: var(--ui-font-sans);
+    --font-display: var(--ui-font-display);
+    --font-mono: var(--ui-font-mono);
+
+    /* shadcn radius scale, bounded by --radius. */
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+    /* Single-line controls only; "pill" turns this fully round. */
+    --radius-control: var(--ui-radius-control);
+
+    --spacing-control-sm: var(--ui-control-sm);
+    --spacing-control-md: var(--ui-control-md);
+    --spacing-control-lg: var(--ui-control-lg);
+    --spacing-section: var(--ui-section-y);
+
+    --container-site-sm: var(--ui-container-sm);
+    --container-site-md: var(--ui-container-md);
+    --container-site-lg: var(--ui-container-lg);
+    --container-site-xl: var(--ui-container-xl);
+
+    --shadow-sm: var(--ui-shadow-sm);
+    --shadow-popover: var(--ui-shadow-popover);
+
+    --ease-out: var(--ui-ease-out);
+    --ease-in-out: var(--ui-ease-in-out);
+    --ease-drawer: var(--ui-ease-drawer);
+}
+
+/*
+ * Motion. Rules (Emil Kowalski's design engineering):
+ * - Only transform, opacity and filter move; never `transition: all`.
+ * - Entrances: ease-out, start from a visible shape (8px, opacity 0), never scale(0).
+ * - Frequent interactions (hover, keyboard) do not move; rare ones (first paint) may delight.
+ */
+@theme {
+    --animate-enter: ui-enter var(--ui-duration-slow) var(--ui-ease-out) both;
+    --animate-fade-in: ui-fade-in var(--ui-duration-base) var(--ui-ease-out) both;
+
+    @keyframes ui-enter {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+            filter: blur(4px);
+        }
+    }
+
+    @keyframes ui-fade-in {
+        from {
+            opacity: 0;
+        }
+    }
+}
+
+/* Cascade the direct children in with `animate-enter`, 60ms apart. For first-paint content only. */
+@utility stagger {
+    & > * {
+        animation: var(--animate-enter);
+        animation-delay: calc(var(--ui-stagger) * var(--stagger-index, 0));
+    }
+    & > :nth-child(2) {
+        --stagger-index: 1;
+    }
+    & > :nth-child(3) {
+        --stagger-index: 2;
+    }
+    & > :nth-child(4) {
+        --stagger-index: 3;
+    }
+    & > :nth-child(5) {
+        --stagger-index: 4;
+    }
+    & > :nth-child(6) {
+        --stagger-index: 5;
+    }
+    & > :nth-child(7) {
+        --stagger-index: 6;
+    }
+    & > :nth-child(n + 8) {
+        --stagger-index: 7;
+    }
+}
+
+/* Reduced motion means gentler, not none: keep the fade, drop movement and blur. */
+@media (prefers-reduced-motion: reduce) {
+    @keyframes ui-enter {
+        from {
+            opacity: 0;
+        }
+    }
+}
+
+@layer base {
+    *,
+    ::before,
+    ::after {
+        border-color: var(--border);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+    }
+}

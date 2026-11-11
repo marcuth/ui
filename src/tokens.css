@@ -1,0 +1,165 @@
+/*
+ * @marcuth/ui tokens. Plain CSS, no Tailwind required.
+ *
+ * Identity (fixed): the neutral scales, type, motion and the border-first surfaces below.
+ * Knobs (per site): --brand, [data-radius], [data-density], --ui-font-sans / --ui-font-display.
+ *
+ * Radius has two layers so "pill" never balloons multi-line surfaces:
+ *   --radius            shadcn scale base (cards, textarea, popovers). Always bounded.
+ *   --ui-radius-control single-line controls (button, input, badge). Becomes 999px on "pill".
+ *
+ * Every theme block re-declares the derived tokens so a nested [data-theme] section
+ * (a dark band inside a light page) recomputes them against its own neutrals.
+ */
+
+:root {
+    /* Knob: brand. Defaults to marcuth.dev's emerald-500 with white ink, as on the portfolio.
+       defineTheme({ brand }) replaces both (ink picked by WCAG contrast unless brandForeground is set). */
+    --brand: #00bc7d;
+    --brand-foreground: #ffffff;
+
+    /* Knob: fonts. Geist, as on marcuth.dev: picked up automatically from next/font's
+       `--font-geist-sans` / `--font-geist-mono` variables, system stack otherwise. */
+    --ui-font-sans: var(--font-geist-sans, ui-sans-serif), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --ui-font-display: var(--ui-font-sans);
+    --ui-font-mono: var(--font-geist-mono, ui-monospace), "SFMono-Regular", Menlo, monospace;
+
+    /* Knob: radius (default "pill", like the portfolio's rounded-full buttons). */
+    --radius: 0.75rem;
+    --ui-radius-control: 999px;
+
+    /* Knob: density (default "comfortable"). */
+    --ui-control-sm: 2rem;
+    --ui-control-md: 2.5rem;
+    --ui-control-lg: 3rem;
+    --ui-section-y: 6rem;
+
+    /* Motion: short, strong ease-out, never bouncy by default. */
+    --ui-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ui-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ui-ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    --ui-duration-fast: 150ms; /* press feedback, hover colors */
+    --ui-duration-base: 200ms; /* small popovers, icon swaps */
+    --ui-duration-slow: 300ms; /* modals, drawers, entrances */
+    --ui-stagger: 60ms;
+
+    --ui-container-sm: 40rem;
+    --ui-container-md: 48rem;
+    --ui-container-lg: 64rem;
+    --ui-container-xl: 80rem;
+}
+
+:root[data-radius="sharp"],
+[data-radius="sharp"] {
+    --radius: 0.25rem;
+    --ui-radius-control: var(--radius);
+}
+
+:root[data-radius="soft"],
+[data-radius="soft"] {
+    --radius: 0.625rem;
+    --ui-radius-control: var(--radius);
+}
+
+:root[data-radius="pill"],
+[data-radius="pill"] {
+    --radius: 0.75rem;
+    --ui-radius-control: 999px;
+}
+
+:root[data-density="compact"],
+[data-density="compact"] {
+    --ui-control-sm: 1.75rem;
+    --ui-control-md: 2.125rem;
+    --ui-control-lg: 2.5rem;
+    --ui-section-y: 4rem;
+}
+
+:root[data-density="comfortable"],
+[data-density="comfortable"] {
+    --ui-control-sm: 2rem;
+    --ui-control-md: 2.5rem;
+    --ui-control-lg: 3rem;
+    --ui-section-y: 6rem;
+}
+
+:root,
+[data-theme="light"] {
+    color-scheme: light;
+
+    /* Neutrals: shadcn zinc, exactly as on marcuth.dev. */
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.141 0.005 285.823);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.141 0.005 285.823);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.141 0.005 285.823);
+    --primary: oklch(0.21 0.006 285.885);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.967 0.001 286.375);
+    --secondary-foreground: oklch(0.21 0.006 285.885);
+    --muted: oklch(0.967 0.001 286.375);
+    --muted-foreground: oklch(0.552 0.016 285.938);
+    --accent: oklch(0.967 0.001 286.375);
+    --accent-foreground: oklch(0.21 0.006 285.885);
+    --border: oklch(0.92 0.004 286.32);
+    --input: oklch(0.92 0.004 286.32);
+
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: oklch(1 0 0);
+    --success: oklch(0.596 0.145 163.225);
+    --warning: oklch(0.769 0.188 70.08);
+
+    --ui-shadow-sm: 0 1px 2px oklch(0 0 0 / 0.05);
+    --ui-shadow-popover: 0 0 0 1px var(--border), 0 8px 24px -6px oklch(0 0 0 / 0.12);
+
+    /* Derived from the brand. */
+    --brand-subtle: color-mix(in oklab, var(--brand) 10%, var(--background));
+    --brand-border: color-mix(in oklab, var(--brand) 45%, var(--border));
+    --brand-ink: color-mix(in oklab, var(--brand) 75%, var(--foreground));
+    --ring: color-mix(in oklab, var(--brand) 55%, transparent);
+    --success-ink: color-mix(in oklab, var(--success) 75%, var(--foreground));
+    --warning-ink: color-mix(in oklab, var(--warning) 60%, var(--foreground));
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --background: oklch(0.141 0.005 285.823);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.21 0.006 285.885);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.21 0.006 285.885);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.92 0.004 286.32);
+    --primary-foreground: oklch(0.21 0.006 285.885);
+    --secondary: oklch(0.274 0.006 286.033);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.274 0.006 286.033);
+    --muted-foreground: oklch(0.705 0.015 286.067);
+    --accent: oklch(0.274 0.006 286.033);
+    --accent-foreground: oklch(0.985 0 0);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+
+    --destructive: oklch(0.704 0.191 22.216);
+    --destructive-foreground: oklch(1 0 0);
+    --success: oklch(0.765 0.177 163.223);
+    --warning: oklch(0.828 0.189 84.429);
+
+    --ui-shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
+    --ui-shadow-popover: 0 0 0 1px var(--border), 0 12px 32px -8px oklch(0 0 0 / 0.5);
+
+    --brand-subtle: color-mix(in oklab, var(--brand) 16%, var(--background));
+    --brand-border: color-mix(in oklab, var(--brand) 50%, var(--border));
+    --brand-ink: color-mix(in oklab, var(--brand) 70%, white);
+    --ring: color-mix(in oklab, var(--brand) 65%, transparent);
+    --success-ink: var(--success);
+    --warning-ink: var(--warning);
+}
+
+:where(:root, [data-theme]) {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--ui-font-sans);
+}
