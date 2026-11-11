@@ -39,6 +39,8 @@ export type ErrorPageProps = Omit<ComponentProps<"main">, "title"> & {
     actions?: ReactNode
     /** Extra content under the actions (an error digest, a status link…). */
     children?: ReactNode
+    /** An emoji as the brand icon (see `BrandMark`). */
+    emoji?: string
     /** Hide the grid/glow background. */
     plain?: boolean
     /** Classes for the outer surface (e.g. to contain the page inside a frame). */
@@ -53,6 +55,7 @@ export function ErrorPage({
     homeHref = "/",
     actions,
     children,
+    emoji,
     plain = false,
     surfaceClassName,
     theme,
@@ -80,7 +83,7 @@ export function ErrorPage({
                     aria-label={BRAND_DOMAIN}
                     className="rounded-control outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
                 >
-                    <BrandMark name={name} />
+                    <BrandMark name={name} emoji={emoji} />
                 </Anchor>
 
                 <div className="flex animate-enter flex-col items-center gap-4 motion-reduce:animate-fade-in">

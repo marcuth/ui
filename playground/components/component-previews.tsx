@@ -115,6 +115,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
     Emoji,
+    EmojiFavicon,
     Empty,
     EmptyDescription,
     EmptyHeader,
@@ -263,7 +264,7 @@ import {
     LuSparkles,
     LuUnderline,
 } from "@marcuth/ui/icons/lucide"
-import type { ReactNode } from "react"
+import { useState, type ReactNode } from "react"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 /* ─── Shared fixtures ─────────────────────────────────────────────────── */
@@ -303,9 +304,52 @@ function PreviewWrapper({ children }: { children: ReactNode }) {
     )
 }
 
+function EmojiFaviconPreview() {
+    const [selected, setSelected] = useState("🚀")
+    const options = ["🚀", "✨", "🟢", "🔥", "💎", "🎨", "⚡", "☕", "🍕", "🛠️"]
+
+    return (
+        <div className="flex w-full flex-col gap-5">
+            <EmojiFavicon emoji={selected} />
+            <div>
+                <p className="text-sm font-medium">Click an emoji to set it as the live tab favicon:</p>
+                <p className="text-xs text-muted-foreground">
+                    Watch the browser tab change icon in real-time using Noto Color Emoji!
+                </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2.5">
+                {options.map((e) => (
+                    <Button
+                        key={e}
+                        variant={selected === e ? "brand" : "outline"}
+                        size="sm"
+                        onClick={() => setSelected(e)}
+                        className="gap-1.5"
+                    >
+                        <Emoji emoji={e} size="sm" />
+                        <span>{e}</span>
+                    </Button>
+                ))}
+            </div>
+            <div className="flex items-center gap-3 rounded-lg border bg-muted/20 p-3">
+                <div className="flex items-center gap-2 rounded-md border bg-background px-3 py-1.5 shadow-xs">
+                    <Emoji emoji={selected} size="sm" />
+                    <span className="text-xs font-medium text-foreground">Current Tab Favicon: {selected}</span>
+                </div>
+                <span className="text-xs text-muted-foreground">High-DPI 64x64 Canvas PNG with Noto Color Emoji</span>
+            </div>
+        </div>
+    )
+}
+
 /* ─── Preview map ──────────────────────────────────────────────────────── */
 
 export const previews: Record<string, ReactNode> = {
+    "emoji-favicon": (
+        <PreviewWrapper>
+            <EmojiFaviconPreview />
+        </PreviewWrapper>
+    ),
     emoji: (
         <PreviewWrapper>
             <div className="flex w-full flex-col gap-6">
@@ -858,8 +902,8 @@ export const previews: Record<string, ReactNode> = {
                 </div>
                 <Section theme="inverse" spacing="sm" className="rounded-lg border px-6">
                     <p className="text-sm">
-                        <code className="font-mono">{'<Section theme="inverse">'}</code> takes the opposite of the surrounding
-                        theme: dark on a light page, light on a dark one.
+                        <code className="font-mono">{'<Section theme="inverse">'}</code> takes the opposite of the
+                        surrounding theme: dark on a light page, light on a dark one.
                     </p>
                 </Section>
                 <Section theme="dark" spacing="sm" className="rounded-lg border px-6">
@@ -953,6 +997,18 @@ export const previews: Record<string, ReactNode> = {
                     <BubbleContent>Vi sim, ficou ótimo.</BubbleContent>
                 </Bubble>
             </BubbleGroup>
+        </PreviewWrapper>
+    ),
+
+    "brand-mark": (
+        <PreviewWrapper>
+            <div className="flex flex-col items-start gap-5">
+                <BrandMark />
+                <BrandMark name="blog" />
+                <BrandMark name="ui" emoji="🎨" />
+                <BrandMark name="tools" emoji="🛠️" />
+                <BrandMark name="blog" monogram={false} />
+            </div>
         </PreviewWrapper>
     ),
 

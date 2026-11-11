@@ -1,6 +1,28 @@
 import { generatedCodes } from "./component-codes.generated"
 
 export const previewCodes: Record<string, string> = {
+    "emoji-favicon": `import { EmojiFavicon, useEmojiFavicon } from "@marcuth/ui"
+
+// 1. Declarative component in your layout or page:
+export default function Layout({ children }: { children: React.ReactNode }) {
+    return (
+        <html>
+            <head>
+                {/* Sets 🚀 as the browser favicon rendered with Noto Color Emoji */}
+                <EmojiFavicon emoji="🚀" />
+            </head>
+            <body>{children}</body>
+        </html>
+    )
+}
+
+// 2. Or dynamically change it based on state or notifications:
+export function NotificationStatus({ unreadCount }: { unreadCount: number }) {
+    // Live updates tab favicon between 🔴 (unread) and 🟢 (clear)
+    useEmojiFavicon(unreadCount > 0 ? "🔴" : "🟢")
+
+    return <div>Unread messages: {unreadCount}</div>
+}`,
     emoji: `import { Emoji, Button, Badge } from "@marcuth/ui"
 
 export default function EmojiDemo() {

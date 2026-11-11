@@ -136,6 +136,15 @@ export {
     type BackgroundTone,
 } from "@/components/background"
 export {
+    EmojiFavicon,
+    createEmojiFaviconSvg,
+    renderEmojiFaviconPng,
+    setEmojiFavicon,
+    useEmojiFavicon,
+    type EmojiFaviconOptions,
+    type EmojiFaviconProps,
+} from "@/components/emoji-favicon"
+export {
     ErrorPage,
     ErrorPageActions,
     ForbiddenPage,

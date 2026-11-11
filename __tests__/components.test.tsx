@@ -16,7 +16,9 @@ import {
     Button,
     CodeBlock,
     CodeBlockContent,
+    createEmojiFaviconSvg,
     Emoji,
+    EmojiFavicon,
     ErrorPage,
     Field,
     FieldDescription,
@@ -179,6 +181,19 @@ describe("app shell", () => {
         const mark = screen.getByRole("img", { name: "blog.marcuth.dev" })
         expect(mark).toHaveTextContent("Bblog.marcuth.dev")
         expect(screen.getByText(".marcuth.dev")).toHaveClass("text-muted-foreground")
+    })
+
+    it("uses an emoji as the icon in place of the monogram", () => {
+        render(<BrandMark name="ui" emoji="🎨" />)
+        const mark = screen.getByRole("img", { name: "ui.marcuth.dev" })
+        expect(mark).toHaveTextContent("🎨ui.marcuth.dev")
+        expect(mark.querySelector("[data-slot=emoji]")).toBeInTheDocument()
+        expect(mark).not.toHaveTextContent("Uui")
+    })
+
+    it("hides the emoji with monogram={false}", () => {
+        render(<BrandMark name="ui" emoji="🎨" monogram={false} />)
+        expect(screen.getByRole("img", { name: "ui.marcuth.dev" })).toHaveTextContent(/^ui\.marcuth\.dev$/)
     })
 
     it("renders the bare domain on the root site", () => {
@@ -466,5 +481,20 @@ describe('theme="inverse"', () => {
         expect(inverse).not.toHaveAttribute("data-theme")
         expect(pinned).toHaveAttribute("data-theme", "dark")
         expect(pinned).not.toHaveAttribute("data-inverse")
+    })
+})
+
+describe("EmojiFavicon", () => {
+    it("generates an SVG data URI with the emoji character", () => {
+        const uri = createEmojiFaviconSvg("🚀")
+        expect(uri).toContain("data:image/svg+xml")
+        expect(decodeURIComponent(uri)).toContain("🚀")
+    })
+
+    it("renders a link[rel=icon] and updates document favicon", () => {
+        render(<EmojiFavicon emoji="✨" />)
+        const link = document.querySelector("link[data-emoji-favicon]")
+        expect(link).toHaveAttribute("data-emoji-favicon", "true")
+        expect(link?.getAttribute("href")).toContain("data:image/svg+xml")
     })
 })

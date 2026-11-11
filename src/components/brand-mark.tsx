@@ -1,5 +1,6 @@
 import type { ComponentProps } from "react"
 
+import { Emoji } from "@/components/ui/emoji"
 import { cn } from "@/lib/utils"
 
 export const BRAND_DOMAIN = "marcuth.dev"
@@ -9,8 +10,10 @@ export type BrandMarkProps = Omit<ComponentProps<"span">, "children"> & {
     name?: string
     /** Parent domain. Defaults to "marcuth.dev". */
     domain?: string
-    /** Show the brand-colored monogram tile before the wordmark. */
+    /** Show the icon before the wordmark: the monogram tile, or the emoji when `emoji` is set. */
     monogram?: boolean
+    /** An emoji as the brand icon, in place of the monogram tile (e.g. "🚀"). */
+    emoji?: string
 }
 
 /** Formats the wordmark: `brandName("blog")` → "blog.marcuth.dev", `brandName()` → "marcuth.dev". */
@@ -24,7 +27,14 @@ export function brandName(name?: string, domain: string = BRAND_DOMAIN): string 
  * the parent domain recedes, so each service reads as part of one family.
  * Wrap it in `<Anchor href="/">` to make it the home link.
  */
-export function BrandMark({ className, name, domain = BRAND_DOMAIN, monogram = true, ...props }: BrandMarkProps) {
+export function BrandMark({
+    className,
+    name,
+    domain = BRAND_DOMAIN,
+    monogram = true,
+    emoji,
+    ...props
+}: BrandMarkProps) {
     const subdomain = name?.trim().toLowerCase()
     const letter = (subdomain || domain).charAt(0).toUpperCase()
 
@@ -36,7 +46,9 @@ export function BrandMark({ className, name, domain = BRAND_DOMAIN, monogram = t
             className={cn("inline-flex items-center gap-2.5 font-display tracking-tight", className)}
             {...props}
         >
-            {monogram ? (
+            {monogram && emoji ? (
+                <Emoji emoji={emoji} size="xl" className="size-7 text-[1.625rem]" />
+            ) : monogram ? (
                 <span
                     aria-hidden="true"
                     className="grid size-7 shrink-0 place-items-center rounded-[min(var(--ui-radius-control),8px)] bg-brand text-sm font-semibold text-brand-foreground"

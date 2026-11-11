@@ -77,14 +77,12 @@ export const navGroups: NavGroup[] = [
                 slug: "theme-toggle",
                 label: "Theme Toggle",
                 description: "Light/dark switch with an expanding circular reveal, persisted in a cookie.",
-                badge: "New",
             },
             {
                 slug: "theme-scope",
                 label: "Theme Scope",
                 description:
                     "The `theme` prop (`light`, `dark`, `inverse`) on AppHeader, AppFooter, Section, Background and error pages.",
-                badge: "New",
             },
         ],
     },
@@ -95,7 +93,16 @@ export const navGroups: NavGroup[] = [
                 slug: "emoji",
                 label: "Emoji",
                 description: "Emoji icon component rendered with Noto Color Emoji font.",
-                badge: "New",
+            },
+            {
+                slug: "emoji-favicon",
+                label: "Emoji Favicon",
+                description: "Dynamic browser favicon using Noto Color Emoji and canvas rendering.",
+            },
+            {
+                slug: "brand-mark",
+                label: "Brand Mark",
+                description: "The {name}.marcuth.dev wordmark, with a monogram or an emoji as the icon.",
             },
             {
                 slug: "typography",
