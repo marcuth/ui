@@ -45,7 +45,8 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p playground",
     "test": "vitest",
     "test:cov": "vitest run --coverage",
-    "icons": "node scripts/generate-icons.mjs"
+    "icons": "node scripts/generate-icons.mjs",
+    "playground:codes": "node scripts/generate-component-codes.mjs"
   },
   "publishConfig": {
     "access": "public"

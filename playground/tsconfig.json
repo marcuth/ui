@@ -22,6 +22,9 @@
             }
         ],
         "paths": {
+            "@playground/*": [
+                "./*"
+            ],
             "@marcuth/ui": [
                 "../src/index.ts"
             ],
